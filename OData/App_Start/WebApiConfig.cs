@@ -10,6 +10,7 @@ using System.Web.Http;
 using Microsoft.OData.Edm;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using OData.Models;
 
 namespace OData
 {
@@ -55,28 +56,14 @@ namespace OData
             // 高级教程：http://www.odata.org/getting-started/advanced-tutorial/
             config.MapODataServiceRoute("ODataRoute", "odata", GetModel());
 
-            //config.EnsureInitialized();
+            config.EnsureInitialized();
         }
 
         public static IEdmModel GetModel()
         {
             var builder = new ODataConventionModelBuilder();
 
-            //var brands = builder.EntitySet<BrandDataObject>("Brands");
-            //var commodities = builder.EntitySet<CommodityDataObject>("Commodities");
-            //var banks = builder.EntitySet<BankDataObject>("Banks");
-            //var warehouses = builder.EntitySet<WarehouseDataObject>("Warehouses");
-            //var tradingCompanies = builder.EntitySet<TradingCompanyDataObject>("TradingCompanies");
-
-            //var batches = builder.EntitySet<BatchDataObject>("Batches");
-            //var contracts = builder.EntitySet<ContractDataObject>("Contracts");
-            //var batchContracts = builder.EntitySet<BatchContractDataObject>("BatchContracts");
-            //var contractDetails = builder.EntitySet<ContractDetailDataObject>("ContractDetails");
-            //var pricings = builder.EntitySet<PricingDataObject>("Pricings");
-            //var certificates = builder.EntitySet<CertificateDataObject>("Certificates");
-            //var inventories = builder.EntitySet<InventoryDataObject>("Inventories");
-            //var funds = builder.EntitySet<FundDataObject>("Funds");
-            //var invoices = builder.EntitySet<InvoiceDataObject>("Invoices");
+            builder.EntitySet<Product>("Products");
 
             return builder.GetEdmModel();
         }
