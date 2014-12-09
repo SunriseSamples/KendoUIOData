@@ -5,10 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.OData;
+using System.Web.Http.Cors;
+// OData v3
+using System.Web.Http.OData;
+// OData v4
+//using System.Web.OData;
 
 namespace OData.Controllers
 {
+    [EnableCors(origins: "http://localhost:9161", headers: "*", methods: "*")]
     public class ProductsController : ODataController
     {
         ProductsContext db = new ProductsContext();
