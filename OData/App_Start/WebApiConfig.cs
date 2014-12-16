@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 // OData v3
-using Microsoft.Data.Edm;
-using System.Web.Http.OData.Builder;
-using System.Web.Http.OData.Extensions;
+//using Microsoft.Data.Edm;
+//using System.Web.Http.OData.Builder;
+//using System.Web.Http.OData.Extensions;
 // OData v4
-//using Microsoft.OData.Edm;
-//using System.Web.OData.Builder;
-//using System.Web.OData.Extensions;
+using Microsoft.OData.Edm;
+using System.Web.OData.Builder;
+using System.Web.OData.Extensions;
 using OData.Models;
 
 namespace OData
@@ -41,7 +41,7 @@ namespace OData
             //         System.Spatial
             //         Microsoft.Data.Edm
             // 参考：http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v3/creating-an-odata-endpoint
-            config.Routes.MapODataServiceRoute("ODataRoute", "odata", GetModel());
+            //config.Routes.MapODataServiceRoute("ODataRoute", "odata", GetModel());
             //config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
 
             // OData v4:
@@ -54,7 +54,7 @@ namespace OData
             // 参考：http://damienbod.wordpress.com/2014/06/10/getting-started-with-web-api-and-odata-v4/
             // 基础教程：http://www.odata.org/getting-started/basic-tutorial/
             // 高级教程：http://www.odata.org/getting-started/advanced-tutorial/
-            //config.MapODataServiceRoute("ODataRoute", "odata", GetModel());
+            config.MapODataServiceRoute("ODataRoute", "odata", GetModel());
 
             // 参考：http://enable-cors.org/server_aspnet.html
             config.EnableCors();

@@ -23,31 +23,20 @@
                 .Editable(editable => editable.Mode(GridEditMode.PopUp)
                     //.TemplateName("")
                 )
-                .HtmlAttributes(new { style = "height: 380px;" })
-                .Scrollable()
-                .Pageable(pageable => pageable
-                    .Refresh(true)
-                    .PageSizes(true)
-                    .ButtonCount(10)
-                )
-                .Sortable()
-                .Filterable()
-                .Groupable()
                 .DataSource(dataSource => dataSource
                     .Custom()
                     .Type("odata")
                     .Schema(schema => schema
-                        .Model(m => m.Id(p => p.ID))
+                        .Model(model => model.Id(p => p.ID))
                         .Type("json")
                         .Data("value")
-                        .Total(data => "function (data) { return data['odata.count']; }")
-                        //.Errors()
+                        .Total(data => "function (data) { return data['@odata.count']; }")
                     )
                     .Transport(transport => transport
-                        .Create(create => create.Url(serviceBaseUrl).Type(HttpVerbs.Post))
-                        .Read(read => read.Url(serviceBaseUrl).Cache(true).DataType("json"))
-                        .Update(update => update.Url(serviceBaseUrl).Type(HttpVerbs.Put).Data("changeUrl"))
-                        .Destroy(destroy => destroy.Url(serviceBaseUrl).Type(HttpVerbs.Delete).Data("changeUrl"))
+                        .Create(create => create.Url(serviceBaseUrl).ContentType("application/json;IEEE754Compatible=true"))
+                        .Read(read => read.Url(serviceBaseUrl).DataType("json").Cache(true))
+                        .Update(update => update.Url(serviceBaseUrl).ContentType("application/json;IEEE754Compatible=true").Data("changeUrl"))
+                        .Destroy(destroy => destroy.Url(serviceBaseUrl).Data("changeUrl"))
                         .ParameterMap("parameterMap")
                     )
                     .PageSize(10)
@@ -57,44 +46,49 @@
                     //.ServerGrouping(true)
                     .Events(events => events.Error("errorHandler"))
                 )
+                .Pageable(pageable => pageable
+                    .Refresh(true)
+                    .PageSizes(true)
+                    .ButtonCount(10)
+                )
+                .Sortable()
+                .Filterable()
+                .Groupable()
             )
         </div>
-
-        <style scoped>
-            #clientsDb {
-                width: 952px;
-                height: 396px;
-                margin: 20px auto 0;
-                padding: 51px 4px 0 4px;
-            }
-@*                background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;*@
-        </style>
-        <script type="text/javascript">
+        <script>
             function changeUrl(data) {
                 this.url = "@(serviceBaseUrl)" + "(" + data.ID + ")";
                 return data;
             }
 
-            function parameterMap(data, type) {
+            function parameterMap(data, operation) {
                 //var parameters = "\n";
                 //parameters += "data = " + JSON.stringify(data) + "\n";
-                //parameters += "type = " + JSON.stringify(type) + "\n";
+                //parameters += "operation = " + JSON.stringify(operation) + "\n";
                 //alert("parameterMap(" + parameters + ")");
-                var result = kendo.data.transports.odata.parameterMap(data, type);
+                var result = kendo.data.transports.odata.parameterMap(data, operation);
                 //alert("result = " + JSON.stringify(result));
                 if (result) {
-                    delete result.$format;        // <-- remove format parameter.
-                    //delete result.$inlinecount;   // <-- remove inlinecount parameter.
-                    //result.$count = true;
+                    //delete result.$format;      // remove format parameter.
+                    delete result.$inlinecount; // remove inlinecount parameter.
+                    result.$count = true;       // add count parameter.
+                    if (result.$filter) {
+                        // substringof('xYz',WorkUnitCode) needs to change to contains(WorkUnitCode,'06')
+                        if (result.$filter.substring(0, 12) == "substringof(") {
+                            var parms = result.$filter.substring(12, result.$filter.length - 1).split(",");
+                            result.$filter = kendo.format("contains({0},{1})", parms[1], parms[0]);
+                        }
+                    }
                 }
-                //$("#message").html(JSON.stringify(result));
+                //$("#message").html(result);
                 return result;
             }
 
             function errorHandler(e) {
                 //$("#message").html(e.xhr.responseText);
-                var message = e.xhr.responseJSON["odata.error"].message.value;
-                var innerMessage = e.xhr.responseJSON["odata.error"].innererror.message;
+                var message = e.xhr.responseJSON["error"].message;
+                var innerMessage = e.xhr.responseJSON["error"].innererror.message;
                 alert(message + "\n" + innerMessage);
             }
         </script>

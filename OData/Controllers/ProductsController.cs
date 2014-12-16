@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 // OData v3
-using System.Web.Http.OData;
+//using System.Web.Http.OData;
 // OData v4
-//using System.Web.OData;
+using System.Web.OData;
 
 namespace OData.Controllers
 {
