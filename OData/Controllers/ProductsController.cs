@@ -20,7 +20,7 @@ namespace OData.Controllers
 
         private bool ProductExists(int key)
         {
-            return db.Products.Any(p => p.Id == key);
+            return db.Products.Any(p => p.ID == key);
         }
 
         protected override void Dispose(bool disposing)
@@ -40,24 +40,24 @@ namespace OData.Controllers
         [EnableQuery]
         public SingleResult<Product> Get([FromODataUri] int key)
         {
-            var result = db.Products.Where(p => p.Id == key);
+            var result = db.Products.Where(p => p.ID == key);
             return SingleResult.Create(result);
         }
 
         // POST odata/Products
-        public async Task<IHttpActionResult> Post(Product product)
+        public async Task<IHttpActionResult> Post(Product create)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            db.Products.Add(product);
+            db.Products.Add(create);
             await db.SaveChangesAsync();
-            return Created(product);
+            return Created(create);
         }
 
         // PATCH odata/Products(5)
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Product> product)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Product> patch)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace OData.Controllers
             {
                 return NotFound();
             }
-            product.Patch(entity);
+            patch.Patch(entity);
             try
             {
                 await db.SaveChangesAsync();
@@ -94,7 +94,7 @@ namespace OData.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (key != update.Id)
+            if (key != update.ID)
             {
                 return BadRequest();
             }
@@ -120,12 +120,12 @@ namespace OData.Controllers
         // DELETE odata/Products(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            var product = await db.Products.FindAsync(key);
-            if (product == null)
+            var entity = await db.Products.FindAsync(key);
+            if (entity == null)
             {
                 return NotFound();
             }
-            db.Products.Remove(product);
+            db.Products.Remove(entity);
             await db.SaveChangesAsync();
             return StatusCode(HttpStatusCode.NoContent);
         }

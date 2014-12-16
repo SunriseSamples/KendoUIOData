@@ -9,7 +9,7 @@ namespace KendoUI.Models
     public class ProductViewModel
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Category { get; set; }

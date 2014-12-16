@@ -1,97 +1,61 @@
 ﻿@using KendoUI.Models;
 <div id="body">
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>Welcome to ASP.NET Web API!</h1>
-                <h2>Modify the code in this template to jump-start your ASP.NET Web API development.</h2>
-            </hgroup>
-            <p>
-                ASP.NET Web API allows you to expose your applications, data and services to the
-                web directly over HTTP.
-            </p>
-            <p>
-                To learn more about ASP.NET Web API visit the
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238195" title="ASP.NET Web API Website">ASP.NET Web API Website</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET Web API.
-                If you have any questions about ASP.NET Web API, visit
-                <a href="http://go.microsoft.com/fwlink/?LinkID=238196" title="ASP.NET Web API Forum">our forums</a>.
-            </p>
-        </div>
-    </section>
-    <section class="content-wrapper main-content clear-fix">
-        <h3>We suggest the following steps:</h3>
-        <ol class="round">
-            <li class="one">
-                <h5>Getting Started</h5>
-                ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-                a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-                is an ideal platform for building RESTful applications on the .NET Framework.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245160">Learn more…</a>
-            </li>
-
-            <li class="two">
-                <h5>Add NuGet packages and jump-start your coding</h5>
-                NuGet makes it easy to install and update free libraries and tools.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245161">Learn more…</a>
-            </li>
-            <li class="three">
-                <h5>Find Web Hosting</h5>
-                You can easily find a web hosting company that offers the right mix of features
-                and price for your applications.
-                <a href="http://go.microsoft.com/fwlink/?LinkId=245164">Learn more…</a>
-            </li>
-        </ol>
-    </section>
     <section class="content-wrapper clear-fix">
         <h3>Telerik Kendo UI Core</h3>
         <div id="clientsDb">
             @{
+                // 参考：
+                // http://blogs.telerik.com/kendoui/posts/11-08-25/shields_up_web_service_abstraction_with_kendo_ui
+                // http://blogs.telerik.com/kendoui/posts/12-10-25/using_kendo_ui_with_mvc4_webapi_odata_and_ef
                 var serviceBaseUrl = "http://localhost:9171/odata/Products";
             }
             @(Html.Kendo().Grid<ProductViewModel>()
                 .Name("grid")
                 .Columns(columns =>
                 {
-                    columns.Bound(c => c.Id).Width(140);
-                    columns.Bound(c => c.Name).Width(140);
-                    columns.Bound(c => c.Price).Width(190);
-                    columns.Bound(c => c.Category).Width(110);
-                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160);
+                    //columns.Bound(c => c.ID).Width(140);
+                    columns.Bound(c => c.Name).Width(140).Title("名称");
+                    columns.Bound(c => c.Price).Width(190).Title("价格");
+                    columns.Bound(c => c.Category).Width(110).Title("类别");
+                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160).Title("操作");
                 })
                 .ToolBar(toolbar => toolbar.Create())
-                .Editable(editable => editable.Mode(GridEditMode.PopUp))
+                .Editable(editable => editable.Mode(GridEditMode.PopUp)
+                    //.TemplateName("")
+                )
                 .HtmlAttributes(new { style = "height: 380px;" })
                 .Scrollable()
-                .Groupable()
-                .Sortable()
                 .Pageable(pageable => pageable
                     .Refresh(true)
                     .PageSizes(true)
-                    .ButtonCount(5)
+                    .ButtonCount(10)
                 )
+                .Sortable()
+                .Filterable()
+                .Groupable()
                 .DataSource(dataSource => dataSource
                     .Custom()
-                    //.Type("odata")
-                    .Type("odataCors")
+                    .Type("odata")
                     .Schema(schema => schema
-                        .Model(m => m.Id(p => p.Id))
-                        //.Data("schemaData")
-                        //.Total("schemaTotal")
+                        .Model(m => m.Id(p => p.ID))
+                        .Type("json")
+                        .Data("value")
+                        .Total(data => "function (data) { return data['odata.count']; }")
+                        //.Errors()
                     )
                     .Transport(transport => transport
-                        //.Create(create => create.Url(serviceBaseUrl).Type(HttpVerbs.Post))
-                        //.Read(read => read.Url(serviceBaseUrl).DataType("json"))
-                        .Read(read => read.Url(serviceBaseUrl))
-                        //.Update(update => update.Data("get_url").Type(HttpVerbs.Put))
-                        //.Destroy(destroy => destroy.Data("get_url").Type(HttpVerbs.Delete))
-                        //.ParameterMap("parameterMap")
+                        .Create(create => create.Url(serviceBaseUrl).Type(HttpVerbs.Post))
+                        .Read(read => read.Url(serviceBaseUrl).Cache(true).DataType("json"))
+                        .Update(update => update.Url(serviceBaseUrl).Type(HttpVerbs.Put).Data("changeUrl"))
+                        .Destroy(destroy => destroy.Url(serviceBaseUrl).Type(HttpVerbs.Delete).Data("changeUrl"))
+                        .ParameterMap("parameterMap")
                     )
-                    .PageSize(20)
+                    .PageSize(10)
                     .ServerPaging(true)
                     .ServerSorting(true)
                     .ServerFiltering(true)
-                    .Events(events => events.Error("error_handler"))
+                    //.ServerGrouping(true)
+                    .Events(events => events.Error("errorHandler"))
                 )
             )
         </div>
@@ -102,48 +66,38 @@
                 height: 396px;
                 margin: 20px auto 0;
                 padding: 51px 4px 0 4px;
-                background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;
             }
+@*                background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;*@
         </style>
         <script type="text/javascript">
-            function get_url(data) {
-                alert("get_url(" + data + ")");
-                return "@(serviceBaseUrl)" + "(" + data.Id + ")";
-            }
-
-            function schemaData(data) {
-                alert("schemaData(" + data + ")");
+            function changeUrl(data) {
+                this.url = "@(serviceBaseUrl)" + "(" + data.ID + ")";
                 return data;
             }
 
-            function schemaTotal(data) {
-                alert("schemaTotal(" + data + ")");
-                return data.length;
-            }
-
-            function parameterMap(options, type) {
-                var paramMap = kendo.data.transports.odata.parameterMap(options);
-                delete paramMap.$inlinecount;   // <-- remove inlinecount parameter.
-                delete paramMap.$format;        // <-- remove format parameter.
-                return paramMap;
-            }
-
-            function error_handler(e) {
-                //$("#message").html(kendo.stringify(e));
-                $("#message").html("\u4e0d\u652f\u6301\u67e5\u8be2\u53c2\u6570\u201c$inlinecount\u201d\u3002");
-                if (e.errors) {
-                    var message = "Errors:\n";
-                    $.each(e.errors, function (key, value) {
-                        if ('errors' in value) {
-                            $.each(value.errors, function () {
-                                message += this + "\n";
-                            });
-                        }
-                    });
-                    alert(message);
+            function parameterMap(data, type) {
+                //var parameters = "\n";
+                //parameters += "data = " + JSON.stringify(data) + "\n";
+                //parameters += "type = " + JSON.stringify(type) + "\n";
+                //alert("parameterMap(" + parameters + ")");
+                var result = kendo.data.transports.odata.parameterMap(data, type);
+                //alert("result = " + JSON.stringify(result));
+                if (result) {
+                    delete result.$format;        // <-- remove format parameter.
+                    //delete result.$inlinecount;   // <-- remove inlinecount parameter.
+                    //result.$count = true;
                 }
+                //$("#message").html(JSON.stringify(result));
+                return result;
+            }
+
+            function errorHandler(e) {
+                //$("#message").html(e.xhr.responseText);
+                var message = e.xhr.responseJSON["odata.error"].message.value;
+                var innerMessage = e.xhr.responseJSON["odata.error"].innererror.message;
+                alert(message + "\n" + innerMessage);
             }
         </script>
-        <p id="message"></p>
+        <p id="message" />
     </section>
 </div>

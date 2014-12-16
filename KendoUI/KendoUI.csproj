@@ -478,7 +478,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\kendo.data.odataCors.js" />
     <Content Include="Scripts\kendo\2014.2.716\angular.min.js" />
     <Content Include="Scripts\kendo\2014.2.716\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\kendo\2014.2.716\cultures\kendo.culture.af.min.js" />
@@ -1094,6 +1093,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\DispayTemplates\" />
+    <Folder Include="Views\Home\EditorTemplates\" />
+    <Folder Include="Views\Shared\DispayTemplates\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

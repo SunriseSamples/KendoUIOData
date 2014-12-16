@@ -46,10 +46,9 @@ namespace KendoUI
                 "~/Content/kendo/2014.2.716/kendo.dataviz.default.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                "~/Scripts/kendo/2014.2.716/kendo.all.min.js",
                 "~/Scripts/kendo/2014.2.716/angular.min.js",
                 "~/Scripts/kendo/2014.2.716/kendo.data.odata.min.js",
-                "~/Scripts/kendo.data.odataCors.js",
-                "~/Scripts/kendo/2014.2.716/kendo.all.min.js",
                 //"~/Scripts/kendo/2014.2.716/kendo.timezones.min.js", // uncomment if using the Scheduler
                 "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
