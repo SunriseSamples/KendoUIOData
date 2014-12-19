@@ -153,11 +153,17 @@
   <data name="Name_ShortName" xml:space="preserve">
     <value>名称1</value>
   </data>
+  <data name="NullDisplayText" xml:space="preserve">
+    <value>无</value>
+  </data>
   <data name="Operation" xml:space="preserve">
     <value>操作</value>
   </data>
   <data name="Price_Description" xml:space="preserve">
     <value>价格说明。</value>
+  </data>
+  <data name="Price_Format" xml:space="preserve">
+    <value>{0:0.00}</value>
   </data>
   <data name="Price_Name" xml:space="preserve">
     <value>价格</value>

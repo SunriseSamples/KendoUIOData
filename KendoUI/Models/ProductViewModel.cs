@@ -1,4 +1,5 @@
 ﻿using KendoUI.Views.App_LocalResources;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +11,7 @@ namespace KendoUI.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public string Category { get; set; }
 
         private class Metadata
@@ -27,6 +28,7 @@ namespace KendoUI.Models
             public object Name { get; set; }
 
             [Display(ResourceType = typeof(ViewModelResource), Name = "Price_Name", ShortName = "Price_ShortName", Prompt = "Price_Prompt", Description = "Price_Description")]
+            [DataType(DataType.Currency)]
             public object Price { get; set; }
 
             [StringLength(150)]

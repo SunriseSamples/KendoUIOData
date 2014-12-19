@@ -3,4 +3,4 @@
     ViewData["placeholder"] = ViewData.ModelMetadata.Watermark;
     ViewData["title"] = ViewData.ModelMetadata.Description;
 }
-@Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, ViewData)
+@Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), 0, 0, ViewData)

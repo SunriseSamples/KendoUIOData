@@ -1097,11 +1097,14 @@
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js.map" />
     <Content Include="Views\Home\EditorTemplates\AddEditProduct.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Shared\DispayTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Home\DispayTemplates\" />
-    <Folder Include="Views\Shared\DispayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

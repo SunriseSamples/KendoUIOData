@@ -16,7 +16,7 @@
                 {
                     columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
                     columns.Bound(c => c.Name).Width(140);
-                    columns.Bound(c => c.Price).Width(190);
+                    columns.Bound(c => c.Price).ClientTemplate("#= kendo.toString(data.Price, 'C', 'zh-CN') #").Width(190);
                     columns.Bound(c => c.Category).Width(110);
                     columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160).Title(ViewModelResource.Operation);
                 })
@@ -90,9 +90,16 @@
 
             function errorHandler(e) {
                 console.info("errorHandler(", e, ")");
-                var message = e.xhr.responseJSON["error"].message;
-                var innerMessage = e.xhr.responseJSON["error"].innererror.message;
-                alert(message + "\n" + innerMessage);
+                if (e.xhr.responseJSON) {
+                    var message = e.xhr.responseJSON["error"].message;
+                    var innerMessage = e.xhr.responseJSON["error"].innererror.message;
+                    alert(message + "\n" + innerMessage);
+                }
+                else {
+                    var status = e.status;
+                    var statusText = e.xhr.statusText;
+                    alert(status + "\n" + statusText);
+                }
             }
         </script>
     </section>

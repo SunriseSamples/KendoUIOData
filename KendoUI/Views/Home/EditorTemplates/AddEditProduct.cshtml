@@ -14,7 +14,7 @@
             @Html.LabelFor(model => model.Name, new { title = ViewModelResource.Name_Description })
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Name, new { placeholder = ViewModelResource.Name_Prompt, title = ViewModelResource.Name_Description })
+            @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
         </div>
 
@@ -30,7 +30,7 @@
             @Html.LabelFor(model => model.Category)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Category, "String", new { placeholder = ViewModelResource.Category_Prompt, title = ViewModelResource.Category_Description })
+            @Html.EditorFor(model => model.Category)
             @Html.ValidationMessageFor(model => model.Category)
         </div>
     </fieldset>

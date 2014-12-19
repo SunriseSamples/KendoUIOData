@@ -169,6 +169,15 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
+        ///   查找类似 无 的本地化字符串。
+        /// </summary>
+        public static string NullDisplayText {
+            get {
+                return ResourceManager.GetString("NullDisplayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作 的本地化字符串。
         /// </summary>
         public static string Operation {
@@ -183,6 +192,15 @@ namespace KendoUI.Views.App_LocalResources {
         public static string Price_Description {
             get {
                 return ResourceManager.GetString("Price_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0:0.00} 的本地化字符串。
+        /// </summary>
+        public static string Price_Format {
+            get {
+                return ResourceManager.GetString("Price_Format", resourceCulture);
             }
         }
         

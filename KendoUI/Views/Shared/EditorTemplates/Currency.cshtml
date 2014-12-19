@@ -1,6 +1,6 @@
-﻿@model String
+﻿@model Decimal?
 @{
     ViewData["placeholder"] = ViewData.ModelMetadata.Watermark;
     ViewData["title"] = ViewData.ModelMetadata.Description;
 }
-@Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, ViewData)
+@Html.Kendo().CurrencyTextBox().Culture("zh-CN").Value(Model).HtmlAttributes(ViewData)
