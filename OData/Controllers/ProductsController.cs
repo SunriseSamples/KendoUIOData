@@ -1,4 +1,5 @@
 ﻿using OData.Models;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace OData.Controllers
     {
         ProductsContext db = new ProductsContext();
 
-        private bool ProductExists(int key)
+        private bool ProductExists(Guid key)
         {
             return db.Products.Any(p => p.ID == key);
         }
@@ -38,7 +39,7 @@ namespace OData.Controllers
 
         // GET odata/Products(5)
         [EnableQuery]
-        public SingleResult<Product> Get([FromODataUri] int key)
+        public SingleResult<Product> Get([FromODataUri] Guid key)
         {
             var result = db.Products.Where(p => p.ID == key);
             return SingleResult.Create(result);
@@ -57,7 +58,7 @@ namespace OData.Controllers
         }
 
         // PATCH odata/Products(5)
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Product> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] Guid key, Delta<Product> patch)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +89,7 @@ namespace OData.Controllers
         }
 
         // PUT odata/Products(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Product update)
+        public async Task<IHttpActionResult> Put([FromODataUri] Guid key, Product update)
         {
             if (!ModelState.IsValid)
             {
@@ -118,7 +119,7 @@ namespace OData.Controllers
         }
 
         // DELETE odata/Products(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
+        public async Task<IHttpActionResult> Delete([FromODataUri] Guid key)
         {
             var entity = await db.Products.FindAsync(key);
             if (entity == null)

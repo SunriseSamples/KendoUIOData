@@ -129,6 +129,18 @@
   <data name="Category_ShortName" xml:space="preserve">
     <value>分类1</value>
   </data>
+  <data name="Currency_Description" xml:space="preserve">
+    <value>币制说明。</value>
+  </data>
+  <data name="Currency_Name" xml:space="preserve">
+    <value>币制</value>
+  </data>
+  <data name="Currency_Prompt" xml:space="preserve">
+    <value>币制提示。</value>
+  </data>
+  <data name="Currency_ShortName" xml:space="preserve">
+    <value>币制1</value>
+  </data>
   <data name="ID_Description" xml:space="preserve">
     <value>自动编号说明。</value>
   </data>
@@ -159,19 +171,19 @@
   <data name="Operation" xml:space="preserve">
     <value>操作</value>
   </data>
-  <data name="Price_Description" xml:space="preserve">
-    <value>价格说明。</value>
+  <data name="UnitPrice_Description" xml:space="preserve">
+    <value>单价说明。</value>
   </data>
-  <data name="Price_Format" xml:space="preserve">
+  <data name="UnitPrice_Format" xml:space="preserve">
     <value>{0:0.00}</value>
   </data>
-  <data name="Price_Name" xml:space="preserve">
-    <value>价格</value>
+  <data name="UnitPrice_Name" xml:space="preserve">
+    <value>单价</value>
   </data>
-  <data name="Price_Prompt" xml:space="preserve">
-    <value>价格提示。</value>
+  <data name="UnitPrice_Prompt" xml:space="preserve">
+    <value>单价提示。</value>
   </data>
-  <data name="Price_ShortName" xml:space="preserve">
-    <value>价格1</value>
+  <data name="UnitPrice_ShortName" xml:space="preserve">
+    <value>单价1</value>
   </data>
 </root>

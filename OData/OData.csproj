@@ -204,6 +204,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411040523057_InitialCreate.cs" />
+    <Compile Include="Migrations\201411040523057_InitialCreate.Designer.cs">
+      <DependentUpon>201411040523057_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412300534104_ChangeKeyAndSomeColumns.cs" />
+    <Compile Include="Migrations\201412300534104_ChangeKeyAndSomeColumns.Designer.cs">
+      <DependentUpon>201412300534104_ChangeKeyAndSomeColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412300838117_AddCurrencyAndCategory.cs" />
+    <Compile Include="Migrations\201412300838117_AddCurrencyAndCategory.Designer.cs">
+      <DependentUpon>201412300838117_AddCurrencyAndCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501040240256_AddDatabaseColumn.cs" />
+    <Compile Include="Migrations\201501040240256_AddDatabaseColumn.Designer.cs">
+      <DependentUpon>201501040240256_AddDatabaseColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,7 +332,20 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201411040523057_InitialCreate.resx">
+      <DependentUpon>201411040523057_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412300534104_ChangeKeyAndSomeColumns.resx">
+      <DependentUpon>201412300534104_ChangeKeyAndSomeColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412300838117_AddCurrencyAndCategory.resx">
+      <DependentUpon>201412300838117_AddCurrencyAndCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501040240256_AddDatabaseColumn.resx">
+      <DependentUpon>201501040240256_AddDatabaseColumn.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -333,7 +365,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>7352</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9171/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -8,6 +8,7 @@
                 // 参考：
                 // http://blogs.telerik.com/kendoui/posts/11-08-25/shields_up_web_service_abstraction_with_kendo_ui
                 // http://blogs.telerik.com/kendoui/posts/12-10-25/using_kendo_ui_with_mvc4_webapi_odata_and_ef
+                // https://github.com/telerik/ui-for-aspnet-mvc-examples/blob/master/grid/odata-v4-web-api-binding-wrappers/KendoUIMVC5/Views/Home/Index.cshtml
                 var serviceBaseUrl = "http://localhost:9171/odata/Products";
             }
             @(Html.Kendo().Grid<ProductViewModel>()
@@ -16,8 +17,8 @@
                 {
                     columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
                     columns.Bound(c => c.Name).Width(140);
-                    columns.Bound(c => c.Price).ClientTemplate("#= kendo.toString(data.Price, 'C', 'zh-CN') #").Width(190);
-                    columns.Bound(c => c.Category).Width(110);
+                    columns.Bound(c => c.UnitPrice).ClientTemplate("#= kendo.toString(data.UnitPrice, 'C', data.Currency) #").Width(190);
+                    columns.Bound(c => c.CategoryID).Width(110);
                     columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160).Title(ViewModelResource.Operation);
                 })
                 .ToolBar(toolbar => toolbar.Create())

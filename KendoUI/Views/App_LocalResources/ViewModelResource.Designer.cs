@@ -97,6 +97,42 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
+        ///   查找类似 币制说明。 的本地化字符串。
+        /// </summary>
+        public static string Currency_Description {
+            get {
+                return ResourceManager.GetString("Currency_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 币制 的本地化字符串。
+        /// </summary>
+        public static string Currency_Name {
+            get {
+                return ResourceManager.GetString("Currency_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 币制提示。 的本地化字符串。
+        /// </summary>
+        public static string Currency_Prompt {
+            get {
+                return ResourceManager.GetString("Currency_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 币制1 的本地化字符串。
+        /// </summary>
+        public static string Currency_ShortName {
+            get {
+                return ResourceManager.GetString("Currency_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动编号说明。 的本地化字符串。
         /// </summary>
         public static string ID_Description {
@@ -187,47 +223,47 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
-        ///   查找类似 价格说明。 的本地化字符串。
+        ///   查找类似 单价说明。 的本地化字符串。
         /// </summary>
-        public static string Price_Description {
+        public static string UnitPrice_Description {
             get {
-                return ResourceManager.GetString("Price_Description", resourceCulture);
+                return ResourceManager.GetString("UnitPrice_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 {0:0.00} 的本地化字符串。
         /// </summary>
-        public static string Price_Format {
+        public static string UnitPrice_Format {
             get {
-                return ResourceManager.GetString("Price_Format", resourceCulture);
+                return ResourceManager.GetString("UnitPrice_Format", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 价格 的本地化字符串。
+        ///   查找类似 单价 的本地化字符串。
         /// </summary>
-        public static string Price_Name {
+        public static string UnitPrice_Name {
             get {
-                return ResourceManager.GetString("Price_Name", resourceCulture);
+                return ResourceManager.GetString("UnitPrice_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 价格提示。 的本地化字符串。
+        ///   查找类似 单价提示。 的本地化字符串。
         /// </summary>
-        public static string Price_Prompt {
+        public static string UnitPrice_Prompt {
             get {
-                return ResourceManager.GetString("Price_Prompt", resourceCulture);
+                return ResourceManager.GetString("UnitPrice_Prompt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 价格1 的本地化字符串。
+        ///   查找类似 单价1 的本地化字符串。
         /// </summary>
-        public static string Price_ShortName {
+        public static string UnitPrice_ShortName {
             get {
-                return ResourceManager.GetString("Price_ShortName", resourceCulture);
+                return ResourceManager.GetString("UnitPrice_ShortName", resourceCulture);
             }
         }
     }
