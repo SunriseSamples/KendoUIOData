@@ -129,6 +129,30 @@
   <data name="Category_ShortName" xml:space="preserve">
     <value>分类1</value>
   </data>
+  <data name="Code_Description" xml:space="preserve">
+    <value>编码说明。</value>
+  </data>
+  <data name="Code_Name" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="Code_Prompt" xml:space="preserve">
+    <value>编码提示。</value>
+  </data>
+  <data name="Code_ShortName" xml:space="preserve">
+    <value>编码1</value>
+  </data>
+  <data name="Culture_Description" xml:space="preserve">
+    <value>文化说明。</value>
+  </data>
+  <data name="Culture_Name" xml:space="preserve">
+    <value>文化</value>
+  </data>
+  <data name="Culture_Prompt" xml:space="preserve">
+    <value>文化提示。</value>
+  </data>
+  <data name="Culture_ShortName" xml:space="preserve">
+    <value>文化1</value>
+  </data>
   <data name="Currency_Description" xml:space="preserve">
     <value>币制说明。</value>
   </data>
@@ -141,17 +165,65 @@
   <data name="Currency_ShortName" xml:space="preserve">
     <value>币制1</value>
   </data>
+  <data name="Description_Description" xml:space="preserve">
+    <value>说明说明。</value>
+  </data>
+  <data name="Description_Name" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="Description_Prompt" xml:space="preserve">
+    <value>说明提示。</value>
+  </data>
+  <data name="Description_ShortName" xml:space="preserve">
+    <value>说明1</value>
+  </data>
   <data name="ID_Description" xml:space="preserve">
-    <value>自动编号说明。</value>
+    <value>编号说明。</value>
   </data>
   <data name="ID_Name" xml:space="preserve">
-    <value>自动编号</value>
+    <value>编号</value>
   </data>
   <data name="ID_Prompt" xml:space="preserve">
-    <value>自动编号提示。</value>
+    <value>编号提示。</value>
   </data>
   <data name="ID_ShortName" xml:space="preserve">
-    <value>编号</value>
+    <value>编号1</value>
+  </data>
+  <data name="ImageUrl_Description" xml:space="preserve">
+    <value>图片说明。</value>
+  </data>
+  <data name="ImageUrl_Name" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="ImageUrl_Prompt" xml:space="preserve">
+    <value>图片提示。</value>
+  </data>
+  <data name="ImageUrl_ShortName" xml:space="preserve">
+    <value>图片1</value>
+  </data>
+  <data name="IntroductionUrl_Description" xml:space="preserve">
+    <value>介绍说明。</value>
+  </data>
+  <data name="IntroductionUrl_Name" xml:space="preserve">
+    <value>介绍</value>
+  </data>
+  <data name="IntroductionUrl_Prompt" xml:space="preserve">
+    <value>介绍提示。</value>
+  </data>
+  <data name="IntroductionUrl_ShortName" xml:space="preserve">
+    <value>介绍1</value>
+  </data>
+  <data name="Memo_Description" xml:space="preserve">
+    <value>备注说明。</value>
+  </data>
+  <data name="Memo_Name" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Memo_Prompt" xml:space="preserve">
+    <value>备注提示。</value>
+  </data>
+  <data name="Memo_ShortName" xml:space="preserve">
+    <value>备注1</value>
   </data>
   <data name="Name_Description" xml:space="preserve">
     <value>名称说明。</value>

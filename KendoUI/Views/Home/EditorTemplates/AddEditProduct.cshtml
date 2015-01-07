@@ -1,9 +1,11 @@
-﻿@model KendoUI.Models.ProductViewModel
+﻿@model KendoUI.Models.OData.Models.Product
 @using KendoUI.Views.App_LocalResources;
 
 @using (Html.BeginForm()) {
+    @*
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    *@
 
     <fieldset>
         <legend>ProductViewModel</legend>
@@ -26,12 +28,12 @@
             @Html.ValidationMessageFor(model => model.UnitPrice)
         </div>
 
-        <div class="editor-label">
+@*        <div class="editor-label">
             @Html.LabelFor(model => model.CategoryID)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.CategoryID)
             @Html.ValidationMessageFor(model => model.CategoryID)
-        </div>
+        </div>*@
     </fieldset>
 }

@@ -11,15 +11,17 @@ using System.Web.Http.Cors;
 //using System.Web.Http.OData;
 // OData v4
 using System.Web.OData;
+using System.Web.OData.Routing;
 
 namespace OData.Controllers
 {
     [EnableCors(origins: "http://localhost:9161", headers: "*", methods: "*")]
+    [ODataRoutePrefix("Products")]
     public class ProductsController : ODataController
     {
         ProductsContext db = new ProductsContext();
 
-        private bool ProductExists(Guid key)
+        private bool Exists(Guid key)
         {
             return db.Products.Any(p => p.ID == key);
         }
@@ -31,18 +33,23 @@ namespace OData.Controllers
         }
 
         // GET odata/Products
-        [EnableQuery]
-        public IQueryable<Product> Get()
+        [EnableQuery(PageSize = 10)]
+        public IHttpActionResult Get()
         {
-            return db.Products;
+            return Ok(db.Products.AsQueryable());
         }
 
         // GET odata/Products(5)
+        [ODataRoute("({key})")]
         [EnableQuery]
-        public SingleResult<Product> Get([FromODataUri] Guid key)
+        public async Task<IHttpActionResult> Get([FromODataUri] Guid key)
         {
-            var result = db.Products.Where(p => p.ID == key);
-            return SingleResult.Create(result);
+            var entity = await db.Products.FindAsync(key);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(entity);
         }
 
         // POST odata/Products
@@ -58,6 +65,39 @@ namespace OData.Controllers
         }
 
         // PATCH odata/Products(5)
+        //[ODataRoute("({key})")]
+        //public IHttpActionResult Patch([FromODataUri] Guid key, Delta<Product> patch)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var entity = db.Products.Find(key);
+        //    if (entity == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    patch.Patch(entity);
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!Exists(key))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return Updated(entity);
+        //}
+
+        // PATCH odata/Products(5)
+        [ODataRoute("({key})")]
         public async Task<IHttpActionResult> Patch([FromODataUri] Guid key, Delta<Product> patch)
         {
             if (!ModelState.IsValid)
@@ -76,7 +116,7 @@ namespace OData.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(key))
+                if (!Exists(key))
                 {
                     return NotFound();
                 }
@@ -89,6 +129,38 @@ namespace OData.Controllers
         }
 
         // PUT odata/Products(5)
+        //[ODataRoute("({key})")]
+        //public IHttpActionResult Put([FromODataUri] Guid key, Product update)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    if (key != update.ID)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    db.Entry(update).State = EntityState.Modified;
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!Exists(key))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return Updated(update);
+        //}
+
+        // PUT odata/Products(5)
+        [ODataRoute("({key})")]
         public async Task<IHttpActionResult> Put([FromODataUri] Guid key, Product update)
         {
             if (!ModelState.IsValid)
@@ -106,7 +178,7 @@ namespace OData.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(key))
+                if (!Exists(key))
                 {
                     return NotFound();
                 }
@@ -119,6 +191,7 @@ namespace OData.Controllers
         }
 
         // DELETE odata/Products(5)
+        [ODataRoute("({key})")]
         public async Task<IHttpActionResult> Delete([FromODataUri] Guid key)
         {
             var entity = await db.Products.FindAsync(key);

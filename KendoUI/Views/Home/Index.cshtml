@@ -1,5 +1,8 @@
-﻿@using KendoUI.Models;
+﻿@using Kendo.Mvc;
+@using Kendo.Mvc.UI;
+@using KendoUI.Models.OData.Models;
 @using KendoUI.Views.App_LocalResources;
+@using System.Collections;
 <div id="body">
     <section class="content-wrapper clear-fix">
         <h3>Telerik Kendo UI Core</h3>
@@ -10,33 +13,49 @@
                 // http://blogs.telerik.com/kendoui/posts/12-10-25/using_kendo_ui_with_mvc4_webapi_odata_and_ef
                 // https://github.com/telerik/ui-for-aspnet-mvc-examples/blob/master/grid/odata-v4-web-api-binding-wrappers/KendoUIMVC5/Views/Home/Index.cshtml
                 var serviceBaseUrl = "http://localhost:9171/odata/Products";
+                var getUrl = new ClientHandlerDescriptor
+                {
+                    HandlerName = "function(data) { return '" + serviceBaseUrl + "(' + data.ID + ')'; }"
+                };
             }
-            @(Html.Kendo().Grid<ProductViewModel>()
+            @(Html.Kendo().Grid<Product>()
                 .Name("grid")
                 .Columns(columns =>
                 {
-                    columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
-                    columns.Bound(c => c.Name).Width(140);
-                    columns.Bound(c => c.UnitPrice).ClientTemplate("#= kendo.toString(data.UnitPrice, 'C', data.Currency) #").Width(190);
-                    columns.Bound(c => c.CategoryID).Width(110);
-                    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(160).Title(ViewModelResource.Operation);
+                    //columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
+                    columns.Bound(c => c.Name);
+                    columns.Bound(c => c.UnitPrice).ClientTemplate("#= kendo.toString(data.UnitPrice, 'C', data.Currency ? data.Currency.Culture : 'en-US') #");
+                    columns.ForeignKey(c => c.CategoryID, (IEnumerable)ViewData["categories"], "ID", "Name");
+                    columns.Command(command =>
+                    {
+                        command.Edit();
+                        command.Destroy();
+                    }).Title(ViewModelResource.Operation);
                 })
                 .ToolBar(toolbar => toolbar.Create())
-                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("AddEditProduct").Window(window => window.Width(500)))
+                .Editable(editable => editable
+                    .Mode(GridEditMode.PopUp)
+                    .TemplateName("AddEditProduct")
+                    .Window(window => window.Width(500))
+                )
                 .DataSource(dataSource => dataSource
                     .Custom()
                     .Type("odata")
                     .Schema(schema => schema
-                        .Model(model => model.Id(p => p.ID))
-                        .Type("json")
+                        .Model(model =>
+                        {
+                            model.Id(p => p.ID);
+                            model.Field(p => p.ID).DefaultValue(Guid.Empty);
+                        })
                         .Data("value")
-                        .Total(data => "function (data) { return data['@odata.count']; }")
+                        .Total(data => "function(data) { return data['@odata.count']; }")
                     )
                     .Transport(transport => transport
                         .Create(create => create.Url(serviceBaseUrl))
-                        .Read(read => read.Url(serviceBaseUrl).DataType("json").Cache(true))
-                        .Update(update => update.Url(serviceBaseUrl).Data("changeUrl"))
-                        .Destroy(destroy => destroy.Url(serviceBaseUrl).Data("changeUrl"))
+                        .Read(read => read.Url(serviceBaseUrl).DataType("json"))
+                        //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Currency, Category' }; }"))
+                        .Update(new { url = getUrl })
+                        .Destroy(new { url = getUrl })
                         .ParameterMap("parameterMap")
                     )
                     .PageSize(10)
@@ -44,7 +63,7 @@
                     .ServerSorting(true)
                     .ServerFiltering(true)
                     //.ServerGrouping(true)
-                    .Events(events => events.Error("errorHandler"))
+                    .Events(events => events.Error("onError"))
                 )
                 .Pageable(pageable => pageable
                     .Refresh(true)
@@ -52,26 +71,18 @@
                     .ButtonCount(10)
                 )
                 .Sortable()
-                .Filterable()
+                .Filterable(filterable => filterable.Mode(GridFilterMode.Row))
                 .Groupable()
             )
         </div>
         <script>
-            function changeUrl(data) {
-                console.info("changeUrl(", data, ")");
-                console.info("this =", this);
-                this.url = kendo.format("{0}({1})", "@(serviceBaseUrl)", data.ID);
-                console.info("url =", this.url);
-                return data;
-            }
-
             function parameterMap(data, operation) {
                 console.info("parameterMap(", data, ",", operation, ")");
                 var result = data;
                 if (operation == "read") {
                     result = kendo.data.transports.odata.parameterMap(data);
                     console.info("result =", result);
-                    //delete result.$format;      // remove format parameter.
+                    delete result.$format;      // remove format parameter.
                     delete result.$inlinecount; // remove inlinecount parameter.
                     result.$count = true;       // add count parameter.
                     if (result.$filter) {
@@ -89,8 +100,8 @@
                 return result;
             }
 
-            function errorHandler(e) {
-                console.info("errorHandler(", e, ")");
+            function onError(e) {
+                console.info("onError(", e, ")");
                 if (e.xhr.responseJSON) {
                     var message = e.xhr.responseJSON["error"].message;
                     var innerMessage = e.xhr.responseJSON["error"].innererror.message;

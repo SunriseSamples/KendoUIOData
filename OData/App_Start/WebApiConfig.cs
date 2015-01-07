@@ -69,15 +69,15 @@ namespace OData
             builder.EntitySet<Currency>("Currencies");
             builder.EntitySet<Category>("Categories");
 
-            var products = builder.EntitySet<Product>("Products").EntityType;
-            products.Ignore(p => p.Date);
-            products.Property(p => p.EdmDate).Name = "Date";
-            products.Ignore(p => p.SmallDateTime);
-            products.Property(p => p.EdmSmallDateTime).Name = "SmallDateTime";
-            products.Ignore(p => p.DateTime);
-            products.Property(p => p.EdmDateTime).Name = "DateTime";
-            products.Ignore(p => p.DateTime2);
-            products.Property(p => p.EdmDateTime2).Name = "DateTime2";
+            var productType = builder.EntitySet<Product>("Products").EntityType;
+            productType.Ignore(p => p.Date);
+            productType.Property(p => p.EdmDate).Name = "Date";
+            productType.Ignore(p => p.SmallDateTime);
+            productType.Property(p => p.EdmSmallDateTime).Name = "SmallDateTime";
+            productType.Ignore(p => p.DateTime);
+            productType.Property(p => p.EdmDateTime).Name = "DateTime";
+            productType.Ignore(p => p.DateTime2);
+            productType.Property(p => p.EdmDateTime2).Name = "DateTime2";
 
             return builder.GetEdmModel();
         }

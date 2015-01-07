@@ -97,6 +97,78 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
+        ///   查找类似 编码说明。 的本地化字符串。
+        /// </summary>
+        public static string Code_Description {
+            get {
+                return ResourceManager.GetString("Code_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编码 的本地化字符串。
+        /// </summary>
+        public static string Code_Name {
+            get {
+                return ResourceManager.GetString("Code_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编码提示。 的本地化字符串。
+        /// </summary>
+        public static string Code_Prompt {
+            get {
+                return ResourceManager.GetString("Code_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编码1 的本地化字符串。
+        /// </summary>
+        public static string Code_ShortName {
+            get {
+                return ResourceManager.GetString("Code_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文化说明。 的本地化字符串。
+        /// </summary>
+        public static string Culture_Description {
+            get {
+                return ResourceManager.GetString("Culture_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文化 的本地化字符串。
+        /// </summary>
+        public static string Culture_Name {
+            get {
+                return ResourceManager.GetString("Culture_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文化提示。 的本地化字符串。
+        /// </summary>
+        public static string Culture_Prompt {
+            get {
+                return ResourceManager.GetString("Culture_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文化1 的本地化字符串。
+        /// </summary>
+        public static string Culture_ShortName {
+            get {
+                return ResourceManager.GetString("Culture_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 币制说明。 的本地化字符串。
         /// </summary>
         public static string Currency_Description {
@@ -133,7 +205,43 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
-        ///   查找类似 自动编号说明。 的本地化字符串。
+        ///   查找类似 说明说明。 的本地化字符串。
+        /// </summary>
+        public static string Description_Description {
+            get {
+                return ResourceManager.GetString("Description_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 说明 的本地化字符串。
+        /// </summary>
+        public static string Description_Name {
+            get {
+                return ResourceManager.GetString("Description_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 说明提示。 的本地化字符串。
+        /// </summary>
+        public static string Description_Prompt {
+            get {
+                return ResourceManager.GetString("Description_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 说明1 的本地化字符串。
+        /// </summary>
+        public static string Description_ShortName {
+            get {
+                return ResourceManager.GetString("Description_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编号说明。 的本地化字符串。
         /// </summary>
         public static string ID_Description {
             get {
@@ -142,7 +250,7 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
-        ///   查找类似 自动编号 的本地化字符串。
+        ///   查找类似 编号 的本地化字符串。
         /// </summary>
         public static string ID_Name {
             get {
@@ -151,7 +259,7 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
-        ///   查找类似 自动编号提示。 的本地化字符串。
+        ///   查找类似 编号提示。 的本地化字符串。
         /// </summary>
         public static string ID_Prompt {
             get {
@@ -160,11 +268,119 @@ namespace KendoUI.Views.App_LocalResources {
         }
         
         /// <summary>
-        ///   查找类似 编号 的本地化字符串。
+        ///   查找类似 编号1 的本地化字符串。
         /// </summary>
         public static string ID_ShortName {
             get {
                 return ResourceManager.GetString("ID_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图片说明。 的本地化字符串。
+        /// </summary>
+        public static string ImageUrl_Description {
+            get {
+                return ResourceManager.GetString("ImageUrl_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图片 的本地化字符串。
+        /// </summary>
+        public static string ImageUrl_Name {
+            get {
+                return ResourceManager.GetString("ImageUrl_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图片提示。 的本地化字符串。
+        /// </summary>
+        public static string ImageUrl_Prompt {
+            get {
+                return ResourceManager.GetString("ImageUrl_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 图片1 的本地化字符串。
+        /// </summary>
+        public static string ImageUrl_ShortName {
+            get {
+                return ResourceManager.GetString("ImageUrl_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 介绍说明。 的本地化字符串。
+        /// </summary>
+        public static string IntroductionUrl_Description {
+            get {
+                return ResourceManager.GetString("IntroductionUrl_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 介绍 的本地化字符串。
+        /// </summary>
+        public static string IntroductionUrl_Name {
+            get {
+                return ResourceManager.GetString("IntroductionUrl_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 介绍提示。 的本地化字符串。
+        /// </summary>
+        public static string IntroductionUrl_Prompt {
+            get {
+                return ResourceManager.GetString("IntroductionUrl_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 介绍1 的本地化字符串。
+        /// </summary>
+        public static string IntroductionUrl_ShortName {
+            get {
+                return ResourceManager.GetString("IntroductionUrl_ShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注说明。 的本地化字符串。
+        /// </summary>
+        public static string Memo_Description {
+            get {
+                return ResourceManager.GetString("Memo_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注 的本地化字符串。
+        /// </summary>
+        public static string Memo_Name {
+            get {
+                return ResourceManager.GetString("Memo_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注提示。 的本地化字符串。
+        /// </summary>
+        public static string Memo_Prompt {
+            get {
+                return ResourceManager.GetString("Memo_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注1 的本地化字符串。
+        /// </summary>
+        public static string Memo_ShortName {
+            get {
+                return ResourceManager.GetString("Memo_ShortName", resourceCulture);
             }
         }
         

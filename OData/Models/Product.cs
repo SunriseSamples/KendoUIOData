@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Spatial;
-using System.Web;
 using System.Data.Entity.Spatial;
 
 namespace OData.Models
 {
     [Table("Products")]
-    public class Product
+    public partial class Product
     {
         // 参考：http://msdn.microsoft.com/zh-cn/library/ms187942.aspx
         [Key]

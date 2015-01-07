@@ -1,25 +1,26 @@
 ﻿using KendoUI.Views.App_LocalResources;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KendoUI.Models
+namespace KendoUI.Models.OData.Models
 {
     // 参考：
     // http://msdn.microsoft.com/zh-cn/library/system.componentmodel.dataannotations.aspx
     // http://msdn.microsoft.com/zh-cn/data/jj591583
     [MetadataType(typeof(Metadata))]
-    public class ProductViewModel
+    public partial class Product
     {
-        public Guid ID { get; set; }
-        public string Name { get; set; }
-        public short? CurrencyID { get; set; }
-        public decimal? UnitPrice { get; set; }
-        public int? CategoryID { get; set; }
-        public string Description { get; set; }
-        public string IntroductionUrl { get; set; }
-        public string ImageUrl { get; set; }
-        public string Memo { get; set; }
+        //public Guid ID { get; set; }
+        //public string Name { get; set; }
+        //public CurrencyViewModel Currency { get; set; }
+        //public short? CurrencyID { get; set; }
+        //public decimal? UnitPrice { get; set; }
+        //public CategoryViewModel Category { get; set; }
+        //public int? CategoryID { get; set; }
+        //public string Description { get; set; }
+        //public string IntroductionUrl { get; set; }
+        //public string ImageUrl { get; set; }
+        //public string Memo { get; set; }
 
         private class Metadata
         {
@@ -33,33 +34,39 @@ namespace KendoUI.Models
             [Display(ResourceType = typeof(ViewModelResource), Name = "Name_Name", ShortName = "Name_ShortName", Prompt = "Name_Prompt", Description = "Name_Description")]
             public object Name { get; set; }
 
-            [ForeignKey("Currency")]
-            [StringLength(3)]
+            [ForeignKey("CurrencyID")]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "Currency_Name", ShortName = "Currency_ShortName", Prompt = "Currency_Prompt", Description = "Currency_Description")]
+            public object Currency { get; set; }
             [Display(ResourceType = typeof(ViewModelResource), Name = "Currency_Name", ShortName = "Currency_ShortName", Prompt = "Currency_Prompt", Description = "Currency_Description")]
             public object CurrencyID { get; set; }
 
-            [Display(ResourceType = typeof(ViewModelResource), Name = "UnitPrice_Name", ShortName = "UnitPrice_ShortName", Prompt = "UnitPrice_Prompt", Description = "UnitPrice_Description")]
             [DataType(DataType.Currency)]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "UnitPrice_Name", ShortName = "UnitPrice_ShortName", Prompt = "UnitPrice_Prompt", Description = "UnitPrice_Description")]
             public object UnitPrice { get; set; }
 
-            [ForeignKey("Category")]
+            [ForeignKey("CategoryID")]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
+            public object Category { get; set; }
             [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
             public object CategoryID { get; set; }
 
             [DataType(DataType.Text)]
             [MaxLength(1024)]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "Description_Name", ShortName = "Description_ShortName", Prompt = "Description_Prompt", Description = "Description_Description")]
             public object Description { get; set; }
 
             [DataType(DataType.Url)]
             [MaxLength(2048)]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "IntroductionUrl_Name", ShortName = "IntroductionUrl_ShortName", Prompt = "IntroductionUrl_Prompt", Description = "IntroductionUrl_Description")]
             public object IntroductionUrl { get; set; }
 
             [DataType(DataType.ImageUrl)]
             [MaxLength(2048)]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "ImageUrl_Name", ShortName = "ImageUrl_ShortName", Prompt = "ImageUrl_Prompt", Description = "ImageUrl_Description")]
             public object ImageUrl { get; set; }
 
-            [Display(ResourceType = typeof(ViewModelResource), Name = "Memo_Name", ShortName = "Memo_ShortName", Prompt = "Memo_Prompt", Description = "Memo_Description")]
             [DataType(DataType.MultilineText)]
+            [Display(ResourceType = typeof(ViewModelResource), Name = "Memo_Name", ShortName = "Memo_ShortName", Prompt = "Memo_Prompt", Description = "Memo_Description")]
             public object Memo { get; set; }
         }
     }
