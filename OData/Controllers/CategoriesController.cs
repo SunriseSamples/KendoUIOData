@@ -1,5 +1,4 @@
 ﻿using OData.Models;
-using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -11,24 +10,32 @@ using System.Web.Http.Cors;
 //using System.Web.Http.OData;
 // OData v4
 using System.Web.OData;
+using System.Web.OData.Routing;
 
 namespace OData.Controllers
 {
     [EnableCors(origins: "http://localhost:9161", headers: "*", methods: "*")]
+    [ODataRoutePrefix("Categories")]
     public class CategoriesController : ODataController
     {
         ProductsContext db = new ProductsContext();
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
 
         private bool Exists(int key)
         {
             return db.Categories.Any(c => c.ID == key);
         }
 
-        private IHttpActionResult Try(int key, Action run, Func<IHttpActionResult> result)
+        private async Task<IHttpActionResult> TrySave(int key, Category entity)
         {
             try
             {
-                run();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -41,44 +48,31 @@ namespace OData.Controllers
                     throw;
                 }
             }
-            return result();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            return Ok(entity);
         }
 
         // GET odata/Categories
-        [EnableQuery]
-        public IQueryable<Category> Get()
+        [EnableQuery(PageSize = 10)]
+        public IHttpActionResult Get()
         {
-            return db.Categories;
+            return Ok(db.Categories.AsQueryable());
         }
 
         // GET odata/Categories(5)
+        [ODataRoute("({key})")]
         [EnableQuery]
-        public SingleResult<Category> Get([FromODataUri] int key)
+        public async Task<IHttpActionResult> Get([FromODataUri] int key)
         {
-            var result = db.Categories.Where(c => c.ID == key);
-            return SingleResult.Create(result);
-        }
-
-        // POST odata/Categories
-        public IHttpActionResult Post(Category create)
-        {
-            if (!ModelState.IsValid)
+            var entity = await db.Categories.FindAsync(key);
+            if (entity == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
-            db.Categories.Add(create);
-            db.SaveChanges();
-            return Created(create);
+            return Ok(entity);
         }
 
         // POST odata/Categories
-        public async Task<IHttpActionResult> PostAsync(Category create)
+        public async Task<IHttpActionResult> Post(Category create)
         {
             if (!ModelState.IsValid)
             {
@@ -90,23 +84,8 @@ namespace OData.Controllers
         }
 
         // PATCH odata/Categories(5)
-        public IHttpActionResult Patch([FromODataUri] int key, Delta<Category> patch)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var entity = db.Categories.Find(key);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            patch.Patch(entity);
-            return Try(key, () => db.SaveChanges(), () => Updated(entity));
-        }
-
-        // PATCH odata/Categories(5)
-        public async Task<IHttpActionResult> PatchAsync([FromODataUri] int key, Delta<Category> patch)
+        [ODataRoute("({key})")]
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Category> patch)
         {
             if (!ModelState.IsValid)
             {
@@ -118,11 +97,12 @@ namespace OData.Controllers
                 return NotFound();
             }
             patch.Patch(entity);
-            return Try(key, async () => await db.SaveChangesAsync(), () => Updated(entity));
+            return await TrySave(key, entity);
         }
 
         // PUT odata/Categories(5)
-        public IHttpActionResult Put([FromODataUri] int key, Category update)
+        [ODataRoute("({key})")]
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Category update)
         {
             if (!ModelState.IsValid)
             {
@@ -133,39 +113,12 @@ namespace OData.Controllers
                 return BadRequest();
             }
             db.Entry(update).State = EntityState.Modified;
-            return Try(key, () => db.SaveChanges(), () => Updated(update));
-        }
-
-        // PUT odata/Categories(5)
-        public async Task<IHttpActionResult> PutAsync([FromODataUri] int key, Category update)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (key != update.ID)
-            {
-                return BadRequest();
-            }
-            db.Entry(update).State = EntityState.Modified;
-            return Try(key, async () => await db.SaveChangesAsync(), () => Updated(update));
+            return await TrySave(key, update);
         }
 
         // DELETE odata/Categories(5)
-        public IHttpActionResult Delete([FromODataUri] int key)
-        {
-            var entity = db.Categories.Find(key);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            db.Categories.Remove(entity);
-            db.SaveChanges();
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // DELETE odata/Categories(5)
-        public async Task<IHttpActionResult> DeleteAsync([FromODataUri] int key)
+        [ODataRoute("({key})")]
+        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
             var entity = await db.Categories.FindAsync(key);
             if (entity == null)

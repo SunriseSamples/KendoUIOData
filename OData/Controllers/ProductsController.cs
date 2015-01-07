@@ -21,15 +21,35 @@ namespace OData.Controllers
     {
         ProductsContext db = new ProductsContext();
 
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
         private bool Exists(Guid key)
         {
             return db.Products.Any(p => p.ID == key);
         }
 
-        protected override void Dispose(bool disposing)
+        private async Task<IHttpActionResult> TrySave(Guid key, Product entity)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Exists(key))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return Ok(entity);
         }
 
         // GET odata/Products
@@ -78,22 +98,7 @@ namespace OData.Controllers
                 return NotFound();
             }
             patch.Patch(entity);
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Exists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return Ok(entity);
+            return await TrySave(key, entity);
         }
 
         // PUT odata/Products(5)
@@ -109,22 +114,7 @@ namespace OData.Controllers
                 return BadRequest();
             }
             db.Entry(update).State = EntityState.Modified;
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Exists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return Ok(update);
+            return await TrySave(key, update);
         }
 
         // DELETE odata/Products(5)
