@@ -65,38 +65,6 @@ namespace OData.Controllers
         }
 
         // PATCH odata/Products(5)
-        //[ODataRoute("({key})")]
-        //public IHttpActionResult Patch([FromODataUri] Guid key, Delta<Product> patch)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    var entity = db.Products.Find(key);
-        //    if (entity == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    patch.Patch(entity);
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!Exists(key))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return Updated(entity);
-        //}
-
-        // PATCH odata/Products(5)
         [ODataRoute("({key})")]
         public async Task<IHttpActionResult> Patch([FromODataUri] Guid key, Delta<Product> patch)
         {
@@ -125,39 +93,8 @@ namespace OData.Controllers
                     throw;
                 }
             }
-            return Updated(entity);
+            return Ok(entity);
         }
-
-        // PUT odata/Products(5)
-        //[ODataRoute("({key})")]
-        //public IHttpActionResult Put([FromODataUri] Guid key, Product update)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    if (key != update.ID)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    db.Entry(update).State = EntityState.Modified;
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!Exists(key))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return Updated(update);
-        //}
 
         // PUT odata/Products(5)
         [ODataRoute("({key})")]
@@ -187,7 +124,7 @@ namespace OData.Controllers
                     throw;
                 }
             }
-            return Updated(update);
+            return Ok(update);
         }
 
         // DELETE odata/Products(5)

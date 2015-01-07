@@ -54,7 +54,7 @@
                         .Create(create => create.Url(serviceBaseUrl))
                         .Read(read => read.Url(serviceBaseUrl).DataType("json"))
                         //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Currency, Category' }; }"))
-                        .Update(new { url = getUrl })
+                        .Update(new { url = getUrl, type = "PATCH" })
                         .Destroy(new { url = getUrl })
                         .ParameterMap("parameterMap")
                     )
