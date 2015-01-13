@@ -13,7 +13,6 @@ namespace OData.Models
         {
         }
 
-        public DbSet<Currency> Currencies { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
     }

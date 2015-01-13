@@ -168,6 +168,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Money\Currency.cs">
+      <Link>Models\Money\Currency.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\MersenneTwister.cs">
+      <Link>Models\Money\MersenneTwister.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\MidpointRoundingRule.cs">
+      <Link>Models\Money\MidpointRoundingRule.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\Money.cs">
+      <Link>Models\Money\Money.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\RoundingPlaces.cs">
+      <Link>Models\Money\RoundingPlaces.cs</Link>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -223,9 +238,12 @@
     <Compile Include="Migrations\201501040240256_AddDatabaseColumn.Designer.cs">
       <DependentUpon>201501040240256_AddDatabaseColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501080425001_AddMoney.cs" />
+    <Compile Include="Migrations\201501080425001_AddMoney.Designer.cs">
+      <DependentUpon>201501080425001_AddMoney.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -348,10 +366,14 @@
     <EmbeddedResource Include="Migrations\201501040240256_AddDatabaseColumn.resx">
       <DependentUpon>201501040240256_AddDatabaseColumn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501080425001_AddMoney.resx">
+      <DependentUpon>201501080425001_AddMoney.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

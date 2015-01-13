@@ -24,8 +24,14 @@
                 {
                     //columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
                     columns.Bound(c => c.Name);
-                    columns.Bound(c => c.UnitPrice).ClientTemplate("#= kendo.toString(data.UnitPrice, 'C', data.Currency ? data.Currency.Culture : 'en-US') #");
+                    columns.ForeignKey(c => c.CurrencyID, (IEnumerable)ViewData["currencies"], "IsoNumericCode", "Iso3LetterCode").Visible(false);
+                    columns.Bound(c => c.UnitPrice).HtmlAttributes(new { Class = "right-align" })
+                        .ClientTemplate("#= formatMoney(data.UnitPrice, data.CurrencyID) #");
                     columns.ForeignKey(c => c.CategoryID, (IEnumerable)ViewData["categories"], "ID", "Name");
+                    columns.Bound(c => c.Description);
+                    columns.Bound(c => c.IntroductionUrl);
+                    columns.Bound(c => c.ImageUrl);
+                    columns.Bound(c => c.Memo);
                     columns.Command(command =>
                     {
                         command.Edit();
@@ -36,7 +42,7 @@
                 .Editable(editable => editable
                     .Mode(GridEditMode.PopUp)
                     .TemplateName("AddEditProduct")
-                    .Window(window => window.Width(500))
+                    .Window(window => window.Width(800))
                 )
                 .DataSource(dataSource => dataSource
                     .Custom()
@@ -53,7 +59,7 @@
                     .Transport(transport => transport
                         .Create(create => create.Url(serviceBaseUrl))
                         .Read(read => read.Url(serviceBaseUrl).DataType("json"))
-                        //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Currency, Category' }; }"))
+                        //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Category' }; }"))
                         .Update(new { url = getUrl, type = "PATCH" })
                         .Destroy(new { url = getUrl })
                         .ParameterMap("parameterMap")
@@ -71,11 +77,24 @@
                     .ButtonCount(10)
                 )
                 .Sortable()
-                .Filterable(filterable => filterable.Mode(GridFilterMode.Row))
+                .Filterable()
                 .Groupable()
-            )
+                    )
         </div>
         <script>
+            function formatMoney(amount, currencyID) {
+                var currencies = @Html.Raw(Json.Encode(ViewData["currencies"]));
+                var currency, culture;
+                $.each(currencies, function(i, c) {
+                    if (currencyID == c.IsoNumericCode) {
+                        currency = c.Iso3LetterCode;
+                        culture = c.Culture;
+                        return false;
+                    }
+                });
+                return kendo.format("{0} {1}", currency, kendo.toString(amount, 'C', culture));
+            }
+
             function parameterMap(data, operation) {
                 console.info("parameterMap(", data, ",", operation, ")");
                 var result = data;

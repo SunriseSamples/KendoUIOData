@@ -1,0 +1,6 @@
+﻿@model object
+@using KendoUI.Views.App_LocalResources;
+@using System.Collections;
+@(Html.Kendo().DropDownListFor(m => m)
+    .OptionLabel(ViewModelResource.NullDisplayText)
+    .BindTo((IEnumerable<SelectListItem>)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"]))

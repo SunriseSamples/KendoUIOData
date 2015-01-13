@@ -17,13 +17,42 @@ namespace OData.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [ForeignKey("CurrencyID")]
-        public virtual Currency Currency { get; set; }
-        public short? CurrencyID { get; set; }
+        // 参考：
+        // http://www.codeproject.com/Articles/28244/A-Money-type-for-the-CLR
+        // http://martinfowler.com/eaaCatalog/money.html
+        [NotMapped]
+        public Money? UnitPrice { get; set; }
+
+        // 参考：
+        // country code (ISO 3166 Alpha-2)
+        // http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+        // currency code (ISO 4217 Alpha-3)
+        // http://zh.wikipedia.org/wiki/ISO_4217
+        // National Language Support (NLS) API Reference
+        // http://msdn.microsoft.com/zh-cn/goglobal/bb896001.aspx
+        public short? CurrencyID
+        {
+            get { return (UnitPrice.HasValue && UnitPrice.Value.Currency != Currency.None ? (short)UnitPrice.Value.Currency.IsoNumericCode : (short?)null); }
+            set
+            {
+                var currency = (value.HasValue ? new Currency(value.Value) : Currency.None);
+                var amount = (UnitPrice.HasValue ? (decimal)UnitPrice.Value : 0m);
+                UnitPrice = (value.HasValue || UnitPrice.HasValue ? new Money(amount, currency) : (Money?)null);
+            }
+        }
 
         [DataType(DataType.Currency)]
-        [Column(TypeName = "money")]
-        public decimal? UnitPrice { get; set; }
+        [Column("UnitPrice", TypeName = "money")]
+        public decimal? UnitPriceAmount
+        {
+            get { return UnitPrice; }
+            set
+            {
+                var currency = (UnitPrice.HasValue ? UnitPrice.Value.Currency : Currency.None);
+                var amount = value ?? 0m;
+                UnitPrice = (value.HasValue || UnitPrice.HasValue ? new Money(amount, currency) : (Money?)null);
+            }
+        }
 
         [ForeignKey("CategoryID")]
         public virtual Category Category { get; set; }

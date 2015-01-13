@@ -8,137 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 2015-01-06 14:45:09
+// Generation date: 2015-01-09 17:44:20
 namespace KendoUI.Models.OData.Models
 {
-    /// <summary>
-    /// There are no comments for CurrencySingle in the schema.
-    /// </summary>
-    [global::Microsoft.OData.Client.OriginalNameAttribute("CurrencySingle")]
-    public partial class CurrencySingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Currency>
-    {
-        /// <summary>
-        /// Initialize a new CurrencySingle object.
-        /// </summary>
-        public CurrencySingle(global::Microsoft.OData.Client.DataServiceContext context, string path)
-            : base(context, path) {}
-
-        /// <summary>
-        /// Initialize a new CurrencySingle object.
-        /// </summary>
-        public CurrencySingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
-            : base(context, path, isComposable) {}
-    }
-    /// <summary>
-    /// There are no comments for Currency in the schema.
-    /// </summary>
-    /// <KeyProperties>
-    /// ID
-    /// </KeyProperties>
-    [global::Microsoft.OData.Client.Key("ID")]
-    [global::Microsoft.OData.Client.OriginalNameAttribute("Currency")]
-    public partial class Currency : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Create a new Currency object.
-        /// </summary>
-        /// <param name="ID">Initial value of ID.</param>
-        /// <param name="code">Initial value of Code.</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        public static Currency CreateCurrency(short ID, string code)
-        {
-            Currency currency = new Currency();
-            currency.ID = ID;
-            currency.Code = code;
-            return currency;
-        }
-        /// <summary>
-        /// There are no comments for Property ID in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("ID")]
-        public short ID
-        {
-            get
-            {
-                return this._ID;
-            }
-            set
-            {
-                this.OnIDChanging(value);
-                this._ID = value;
-                this.OnIDChanged();
-                this.OnPropertyChanged("ID");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private short _ID;
-        partial void OnIDChanging(short value);
-        partial void OnIDChanged();
-        /// <summary>
-        /// There are no comments for Property Code in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Code")]
-        public string Code
-        {
-            get
-            {
-                return this._Code;
-            }
-            set
-            {
-                this.OnCodeChanging(value);
-                this._Code = value;
-                this.OnCodeChanged();
-                this.OnPropertyChanged("Code");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private string _Code;
-        partial void OnCodeChanging(string value);
-        partial void OnCodeChanged();
-        /// <summary>
-        /// There are no comments for Property Culture in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Culture")]
-        public string Culture
-        {
-            get
-            {
-                return this._Culture;
-            }
-            set
-            {
-                this.OnCultureChanging(value);
-                this._Culture = value;
-                this.OnCultureChanged();
-                this.OnPropertyChanged("Culture");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private string _Culture;
-        partial void OnCultureChanging(string value);
-        partial void OnCultureChanged();
-        /// <summary>
-        /// This event is raised when the value of the property is changed
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        /// <summary>
-        /// The value of the property is changed
-        /// </summary>
-        /// <param name="property">property name</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
     /// <summary>
     /// There are no comments for CategorySingle in the schema.
     /// </summary>
@@ -262,27 +134,6 @@ namespace KendoUI.Models.OData.Models
         public ProductSingle(global::Microsoft.OData.Client.DataServiceContext context, string path, bool isComposable)
             : base(context, path, isComposable) {}
         /// <summary>
-        /// There are no comments for Currency in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        public global::KendoUI.Models.OData.Models.CurrencySingle Currency
-        {
-            get
-            {
-                if (!this.IsComposable)
-                {
-                    throw new global::System.NotSupportedException("The previous function is not composable.");
-                }
-                if ((this._Currency == null))
-                {
-                    this._Currency = new global::KendoUI.Models.OData.Models.CurrencySingle(this.Context, GetPath("Currency"));
-                }
-                return this._Currency;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private global::KendoUI.Models.OData.Models.CurrencySingle _Currency;
-        /// <summary>
         /// There are no comments for Category in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
@@ -327,6 +178,29 @@ namespace KendoUI.Models.OData.Models
             product.Name = name;
             return product;
         }
+        /// <summary>
+        /// There are no comments for Property UnitPrice in the schema.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UnitPrice")]
+        public global::System.Nullable<decimal> UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+            set
+            {
+                this.OnUnitPriceChanging(value);
+                this._UnitPrice = value;
+                this.OnUnitPriceChanged();
+                this.OnPropertyChanged("UnitPrice");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
+        private global::System.Nullable<decimal> _UnitPrice;
+        partial void OnUnitPriceChanging(global::System.Nullable<decimal> value);
+        partial void OnUnitPriceChanged();
         /// <summary>
         /// There are no comments for Property Date in the schema.
         /// </summary>
@@ -488,29 +362,6 @@ namespace KendoUI.Models.OData.Models
         private global::System.Nullable<short> _CurrencyID;
         partial void OnCurrencyIDChanging(global::System.Nullable<short> value);
         partial void OnCurrencyIDChanged();
-        /// <summary>
-        /// There are no comments for Property UnitPrice in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("UnitPrice")]
-        public global::System.Nullable<decimal> UnitPrice
-        {
-            get
-            {
-                return this._UnitPrice;
-            }
-            set
-            {
-                this.OnUnitPriceChanging(value);
-                this._UnitPrice = value;
-                this.OnUnitPriceChanged();
-                this.OnPropertyChanged("UnitPrice");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private global::System.Nullable<decimal> _UnitPrice;
-        partial void OnUnitPriceChanging(global::System.Nullable<decimal> value);
-        partial void OnUnitPriceChanged();
         /// <summary>
         /// There are no comments for Property CategoryID in the schema.
         /// </summary>
@@ -1386,29 +1237,6 @@ namespace KendoUI.Models.OData.Models
         partial void OnGeographyChanging(global::KendoUI.Models.System.Data.Entity.Spatial.DbGeography value);
         partial void OnGeographyChanged();
         /// <summary>
-        /// There are no comments for Property Currency in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        [global::Microsoft.OData.Client.OriginalNameAttribute("Currency")]
-        public global::KendoUI.Models.OData.Models.Currency Currency
-        {
-            get
-            {
-                return this._Currency;
-            }
-            set
-            {
-                this.OnCurrencyChanging(value);
-                this._Currency = value;
-                this.OnCurrencyChanged();
-                this.OnPropertyChanged("Currency");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private global::KendoUI.Models.OData.Models.Currency _Currency;
-        partial void OnCurrencyChanging(global::KendoUI.Models.OData.Models.Currency value);
-        partial void OnCurrencyChanged();
-        /// <summary>
         /// There are no comments for Property Category in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
@@ -1454,29 +1282,6 @@ namespace KendoUI.Models.OData.Models
     /// </summary>
     public static class ExtensionMethods
     {
-        /// <summary>
-        /// Get an entity of type global::KendoUI.Models.OData.Models.Currency as global::KendoUI.Models.OData.Models.CurrencySingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="keys">dictionary with the names and values of keys</param>
-        public static global::KendoUI.Models.OData.Models.CurrencySingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::KendoUI.Models.OData.Models.Currency> source, global::System.Collections.Generic.Dictionary<string, object> keys)
-        {
-            return new global::KendoUI.Models.OData.Models.CurrencySingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
-        /// <summary>
-        /// Get an entity of type global::KendoUI.Models.OData.Models.Currency as global::KendoUI.Models.OData.Models.CurrencySingle specified by key from an entity set
-        /// </summary>
-        /// <param name="source">source entity set</param>
-        /// <param name="iD">The value of iD</param>
-        public static global::KendoUI.Models.OData.Models.CurrencySingle ByKey(this global::Microsoft.OData.Client.DataServiceQuery<global::KendoUI.Models.OData.Models.Currency> source,
-            short iD)
-        {
-            global::System.Collections.Generic.Dictionary<string, object> keys = new global::System.Collections.Generic.Dictionary<string, object>
-            {
-                { "ID", iD }
-            };
-            return new global::KendoUI.Models.OData.Models.CurrencySingle(source.Context, source.GetKeyPath(global::Microsoft.OData.Client.Serializer.GetKeyString(source.Context, keys)));
-        }
         /// <summary>
         /// Get an entity of type global::KendoUI.Models.OData.Models.Category as global::KendoUI.Models.OData.Models.CategorySingle specified by key from an entity set
         /// </summary>
@@ -1891,23 +1696,6 @@ namespace KendoUI.Models.Default
             return null;
         }
         /// <summary>
-        /// There are no comments for Currencies in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        public global::Microsoft.OData.Client.DataServiceQuery<global::KendoUI.Models.OData.Models.Currency> Currencies
-        {
-            get
-            {
-                if ((this._Currencies == null))
-                {
-                    this._Currencies = base.CreateQuery<global::KendoUI.Models.OData.Models.Currency>("Currencies");
-                }
-                return this._Currencies;
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        private global::Microsoft.OData.Client.DataServiceQuery<global::KendoUI.Models.OData.Models.Currency> _Currencies;
-        /// <summary>
         /// There are no comments for Categories in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
@@ -1942,14 +1730,6 @@ namespace KendoUI.Models.Default
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
         private global::Microsoft.OData.Client.DataServiceQuery<global::KendoUI.Models.OData.Models.Product> _Products;
         /// <summary>
-        /// There are no comments for Currencies in the schema.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
-        public void AddToCurrencies(global::KendoUI.Models.OData.Models.Currency currency)
-        {
-            base.AddObject("Currencies", currency);
-        }
-        /// <summary>
         /// There are no comments for Categories in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.1.0")]
@@ -1974,14 +1754,6 @@ namespace KendoUI.Models.Default
             private const string Edmx = @"<edmx:Edmx Version=""4.0"" xmlns:edmx=""http://docs.oasis-open.org/odata/ns/edmx"">
   <edmx:DataServices>
     <Schema Namespace=""OData.Models"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
-      <EntityType Name=""Currency"">
-        <Key>
-          <PropertyRef Name=""ID"" />
-        </Key>
-        <Property Name=""ID"" Type=""Edm.Int16"" Nullable=""false"" />
-        <Property Name=""Code"" Type=""Edm.String"" Nullable=""false"" />
-        <Property Name=""Culture"" Type=""Edm.String"" />
-      </EntityType>
       <EntityType Name=""Category"">
         <Key>
           <PropertyRef Name=""ID"" />
@@ -1993,6 +1765,7 @@ namespace KendoUI.Models.Default
         <Key>
           <PropertyRef Name=""ID"" />
         </Key>
+        <Property Name=""UnitPrice"" Type=""Edm.Decimal"" />
         <Property Name=""Date"" Type=""Edm.DateTimeOffset"" />
         <Property Name=""SmallDateTime"" Type=""Edm.DateTimeOffset"" />
         <Property Name=""DateTime"" Type=""Edm.DateTimeOffset"" />
@@ -2000,7 +1773,6 @@ namespace KendoUI.Models.Default
         <Property Name=""ID"" Type=""Edm.Guid"" Nullable=""false"" />
         <Property Name=""Name"" Type=""Edm.String"" Nullable=""false"" />
         <Property Name=""CurrencyID"" Type=""Edm.Int16"" />
-        <Property Name=""UnitPrice"" Type=""Edm.Decimal"" />
         <Property Name=""CategoryID"" Type=""Edm.Int32"" />
         <Property Name=""Description"" Type=""Edm.String"" />
         <Property Name=""IntroductionUrl"" Type=""Edm.String"" />
@@ -2039,7 +1811,6 @@ namespace KendoUI.Models.Default
         <Property Name=""Xml"" Type=""Edm.String"" />
         <Property Name=""Geometry"" Type=""System.Data.Entity.Spatial.DbGeometry"" />
         <Property Name=""Geography"" Type=""System.Data.Entity.Spatial.DbGeography"" />
-        <NavigationProperty Name=""Currency"" Type=""OData.Models.Currency"" />
         <NavigationProperty Name=""Category"" Type=""OData.Models.Category"" />
       </EntityType>
     </Schema>
@@ -2063,10 +1834,8 @@ namespace KendoUI.Models.Default
     </Schema>
     <Schema Namespace=""Default"" xmlns=""http://docs.oasis-open.org/odata/ns/edm"">
       <EntityContainer Name=""Container"">
-        <EntitySet Name=""Currencies"" EntityType=""OData.Models.Currency"" />
         <EntitySet Name=""Categories"" EntityType=""OData.Models.Category"" />
         <EntitySet Name=""Products"" EntityType=""OData.Models.Product"">
-          <NavigationPropertyBinding Path=""Currency"" Target=""Currencies"" />
           <NavigationPropertyBinding Path=""Category"" Target=""Categories"" />
         </EntitySet>
       </EntityContainer>

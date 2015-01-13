@@ -66,10 +66,10 @@ namespace OData
         {
             var builder = new ODataConventionModelBuilder();
 
-            builder.EntitySet<Currency>("Currencies");
             builder.EntitySet<Category>("Categories");
 
             var productType = builder.EntitySet<Product>("Products").EntityType;
+            productType.Property(p => p.UnitPriceAmount).Name = "UnitPrice";
             productType.Ignore(p => p.Date);
             productType.Property(p => p.EdmDate).Name = "Date";
             productType.Ignore(p => p.SmallDateTime);

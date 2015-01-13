@@ -168,6 +168,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Money\Currency.cs">
+      <Link>Models\Money\Currency.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\MersenneTwister.cs">
+      <Link>Models\Money\MersenneTwister.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\MidpointRoundingRule.cs">
+      <Link>Models\Money\MidpointRoundingRule.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\Money.cs">
+      <Link>Models\Money\Money.cs</Link>
+    </Compile>
+    <Compile Include="..\Money\RoundingPlaces.cs">
+      <Link>Models\Money\RoundingPlaces.cs</Link>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -205,14 +220,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CategoryViewModel.cs" />
-    <Compile Include="Models\CurrencyViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\Money.cs" />
     <Compile Include="Models\ODataClient.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ODataClient.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\App_LocalResources\ViewModelResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1130,6 +1146,7 @@
     <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
     <Content Include="Views\Shared\DispayTemplates\Currency.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDownSelectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

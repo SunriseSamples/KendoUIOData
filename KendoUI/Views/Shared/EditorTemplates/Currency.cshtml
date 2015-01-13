@@ -1,6 +1,9 @@
 ﻿@model Decimal?
+@using System.Globalization;
 @{
     ViewData["placeholder"] = ViewData.ModelMetadata.Watermark;
     ViewData["title"] = ViewData.ModelMetadata.Description;
+    var currency = (Currency?)ViewData["currency"];
+    var culture = (currency.HasValue ? currency.Value.Culture : CultureInfo.InvariantCulture.Name);
 }
-@Html.Kendo().CurrencyTextBox().Culture("zh-CN").Value(Model).HtmlAttributes(ViewData)
+@Html.Kendo().CurrencyTextBox().Culture(culture).Value(Model).HtmlAttributes(ViewData)

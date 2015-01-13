@@ -1,4 +1,5 @@
 ﻿using KendoUI.Views.App_LocalResources;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,18 +11,6 @@ namespace KendoUI.Models.OData.Models
     [MetadataType(typeof(Metadata))]
     public partial class Product
     {
-        //public Guid ID { get; set; }
-        //public string Name { get; set; }
-        //public CurrencyViewModel Currency { get; set; }
-        //public short? CurrencyID { get; set; }
-        //public decimal? UnitPrice { get; set; }
-        //public CategoryViewModel Category { get; set; }
-        //public int? CategoryID { get; set; }
-        //public string Description { get; set; }
-        //public string IntroductionUrl { get; set; }
-        //public string ImageUrl { get; set; }
-        //public string Memo { get; set; }
-
         private class Metadata
         {
             [Key]
@@ -34,9 +23,7 @@ namespace KendoUI.Models.OData.Models
             [Display(ResourceType = typeof(ViewModelResource), Name = "Name_Name", ShortName = "Name_ShortName", Prompt = "Name_Prompt", Description = "Name_Description")]
             public object Name { get; set; }
 
-            [ForeignKey("CurrencyID")]
-            [Display(ResourceType = typeof(ViewModelResource), Name = "Currency_Name", ShortName = "Currency_ShortName", Prompt = "Currency_Prompt", Description = "Currency_Description")]
-            public object Currency { get; set; }
+            [UIHint("DropDownSelectList")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Currency_Name", ShortName = "Currency_ShortName", Prompt = "Currency_Prompt", Description = "Currency_Description")]
             public object CurrencyID { get; set; }
 
@@ -47,6 +34,7 @@ namespace KendoUI.Models.OData.Models
             [ForeignKey("CategoryID")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
             public object Category { get; set; }
+            [UIHint("DropDownSelectList")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
             public object CategoryID { get; set; }
 
