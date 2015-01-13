@@ -221,7 +221,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Money.cs" />
     <Compile Include="Models\ODataClient.cs">
       <AutoGen>True</AutoGen>
