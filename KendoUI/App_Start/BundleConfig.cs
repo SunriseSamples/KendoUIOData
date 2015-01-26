@@ -50,7 +50,10 @@ namespace KendoUI
                 "~/Scripts/kendo/2014.2.716/angular.min.js",
                 "~/Scripts/kendo/2014.2.716/kendo.data.odata.min.js",
                 //"~/Scripts/kendo/2014.2.716/kendo.timezones.min.js", // uncomment if using the Scheduler
+                "~/Scripts/kendo/2014.2.716/cultures/kendo.culture.en-US.min.js",
                 "~/Scripts/kendo/2014.2.716/cultures/kendo.culture.zh-CN.min.js",
+                "~/Scripts/kendo/2014.2.716/cultures/kendo.culture.zh-HK.min.js",
+                "~/Scripts/kendo/2014.2.716/cultures/kendo.culture.ca-ES.min.js",
                 "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.IgnoreList.Clear();

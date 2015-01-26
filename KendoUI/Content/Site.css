@@ -58,6 +58,7 @@ mark {
     visibility: hidden;
 }
 
+.center-align { text-align: center; }
 .left-align { text-align: left; }
 .right-align { text-align: right; }
 
@@ -100,7 +101,7 @@ h5, h6 {
     margin: 0 auto;
     padding: 0 8px;
     min-width: 960px;
-    max-width: none;
+    max-width: 98%;
 }
 
 #body {

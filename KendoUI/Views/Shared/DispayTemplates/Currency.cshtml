@@ -1,6 +1,0 @@
-﻿@model Decimal?
-@using System.Globalization;
-@{
-    IFormatProvider formatProvider = CultureInfo.InvariantCulture;
-}
-<span class="currency">@String.Format(formatProvider, "{0:C}", Model)</span>

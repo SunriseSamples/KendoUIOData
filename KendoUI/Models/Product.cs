@@ -23,7 +23,7 @@ namespace KendoUI.Models.OData.Models
             [Display(ResourceType = typeof(ViewModelResource), Name = "Name_Name", ShortName = "Name_ShortName", Prompt = "Name_Prompt", Description = "Name_Description")]
             public object Name { get; set; }
 
-            [UIHint("DropDownSelectList")]
+            [UIHint("DropDownList")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Currency_Name", ShortName = "Currency_ShortName", Prompt = "Currency_Prompt", Description = "Currency_Description")]
             public object CurrencyID { get; set; }
 
@@ -34,7 +34,7 @@ namespace KendoUI.Models.OData.Models
             [ForeignKey("CategoryID")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
             public object Category { get; set; }
-            [UIHint("DropDownSelectList")]
+            [UIHint("DropDownList")]
             [Display(ResourceType = typeof(ViewModelResource), Name = "Category_Name", ShortName = "Category_ShortName", Prompt = "Category_Prompt", Description = "Category_Description")]
             public object CategoryID { get; set; }
 

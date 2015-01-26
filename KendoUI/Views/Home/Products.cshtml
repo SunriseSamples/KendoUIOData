@@ -1,0 +1,161 @@
+﻿@model IEnumerable<KendoUI.Models.OData.Models.Product>
+@using Kendo.Mvc;
+@*@using Kendo.Mvc.UI;*@
+@using KendoUI.Models.OData.Models;
+@using KendoUI.Views.App_LocalResources;
+@using System.Collections;
+
+@{
+    ViewBag.Title = "Products List";
+    // 参考：
+    // http://blogs.telerik.com/kendoui/posts/11-08-25/shields_up_web_service_abstraction_with_kendo_ui
+    // http://blogs.telerik.com/kendoui/posts/12-10-25/using_kendo_ui_with_mvc4_webapi_odata_and_ef
+    // https://github.com/telerik/ui-for-aspnet-mvc-examples/blob/master/grid/odata-v4-web-api-binding-wrappers/KendoUIMVC5/Views/Home/Index.cshtml
+    var serviceBaseUrl = ViewBag.ServiceRoot + "/Products";
+    var getUrl = new ClientHandlerDescriptor
+    {
+        HandlerName = "function(data) { return '" + serviceBaseUrl + "(' + data.ID + ')'; }"
+    };
+}
+@(Html.Kendo().Grid(Model)
+    .Name("Products")
+    .Columns(columns =>
+    {
+        //columns.Bound(c => c.ID).Width(140).Title(ViewModelResource.ID_ShortName);
+        columns.Bound(c => c.Name);
+        columns.ForeignKey(c => c.CurrencyID, (IEnumerable)ViewData["currencies"], "IsoNumericCode", "Iso3LetterCode").Visible(false);
+        columns.Bound(c => c.UnitPrice).HtmlAttributes(new { Class = "right-align" })
+            .ClientTemplate("#= formatMoney(data.UnitPrice, data.CurrencyID) #");
+        columns.ForeignKey(c => c.CategoryID, (IEnumerable)ViewData["categories"], "ID", "Name");
+        columns.Bound(c => c.Description);
+        columns.Bound(c => c.IntroductionUrl);
+        columns.Bound(c => c.ImageUrl);
+        columns.Bound(c => c.Memo);
+        columns.Command(command =>
+        {
+            command.Edit();
+            command.Destroy();
+        }).Title(ViewModelResource.Operation);
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable
+        .Mode(GridEditMode.PopUp)
+        .TemplateName("Product")
+        .Window(window => window.Width(800))
+    )
+    //.DataSource(dataSource => dataSource
+    //    .Server()
+    //    .Model(model => 
+    //    {
+    //        model.Id(p => p.ID);
+    //        //model.Field(p => p.ID).DefaultValue(Guid.Empty);
+    //    })
+    //    .Create("Create", "Products")
+    //    .Update("Edit", "Products")
+    //    .Destroy("Delete", "Products")
+    //)
+    .DataSource(dataSource => dataSource
+        .Custom()
+        .Type("odata")
+        .Schema(schema => schema
+            .Model(model =>
+            {
+                model.Id(p => p.ID);
+                model.Field(p => p.ID).DefaultValue(Guid.Empty);
+            })
+            .Data("value")
+            .Total(data => "function(data) { return data['@odata.count']; }")
+        )
+        .Transport(transport => transport
+            .Create(create => create.Url(serviceBaseUrl))
+            .Read(read => read.Url(serviceBaseUrl).DataType("json"))
+            //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Category' }; }"))
+            .Update(new { url = getUrl, type = "PATCH" })
+            .Destroy(new { url = getUrl })
+            .ParameterMap("parameterMap")
+        )
+        .PageSize(10)
+        .ServerPaging(true)
+        .ServerSorting(true)
+        .ServerFiltering(true)
+        //.ServerGrouping(true)
+        .Events(events => events.Error("onError"))
+    )
+    .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(true)
+        .ButtonCount(10)
+    )
+    .Sortable()
+    .Filterable()
+    .Groupable()
+)
+<script>
+    function getCurrency(id) {
+        var currencies = @Html.Raw(Json.Encode(ViewData["currencies"]));
+        var currency = null;
+        $.each(currencies, function(i, c) {
+            if (id == c.IsoNumericCode) {
+                currency = c
+                return false;
+            }
+        });
+        return currency;
+    }
+
+    function formatMoney(amount, currencyID) {
+        var currency = getCurrency(currencyID);
+        var code = (currency == null ? "" : currency.Iso3LetterCode);
+        return kendo.format("{0} {1:0.00}", code, amount);
+        //return kendo.format("{0} {1}", code, kendo.toString(amount, 'C', currency.Culture));
+    }
+
+    function parameterMap(data, operation) {
+        console.info("parameterMap(", data, ",", operation, ")");
+        var result = data;
+        if (operation == "read") {
+            result = kendo.data.transports.odata.parameterMap(data);
+            console.info("result =", result);
+            delete result.$format;      // remove format parameter.
+            delete result.$inlinecount; // remove inlinecount parameter.
+            result.$count = true;       // add count parameter.
+            if (result.$filter) {
+                // substringof('xYz',WorkUnitCode) needs to change to contains(WorkUnitCode,'06')
+                if (result.$filter.substring(0, 12) == "substringof(") {
+                    var parms = result.$filter.substring(12, result.$filter.length - 1).split(",");
+                    result.$filter = kendo.format("contains({0},{1})", parms[1], parms[0]);
+                }
+            }
+        }
+        else {
+            result = JSON.stringify(data);
+        }
+        console.info("return", result);
+        return result;
+    }
+
+    function onError(e) {
+        console.info("onError(", e, ")");
+        if (e.xhr.responseJSON) {
+            var message = e.xhr.responseJSON["error"].message;
+            var innerMessage = e.xhr.responseJSON["error"].innererror.message;
+            alert(message + "\n" + innerMessage);
+        }
+        else {
+            var status = e.status;
+            var statusText = e.xhr.statusText;
+            alert(status + "\n" + statusText);
+        }
+    }
+
+    function onCurrencyIDChange(e) {
+        console.info("onCurrencyIDChange(", e, ")");
+        var currency = getCurrency($("#CurrencyID").val());
+        if (currency != null) {
+            $("#UnitPrice").kendoNumericTextBox({ 
+                culture: currency.Culture,
+                format: "c"
+            });
+        }
+    }
+</script>

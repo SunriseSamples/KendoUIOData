@@ -909,8 +909,11 @@ namespace System
                 symbolLookup[isoSymbol] = regionInfo.CurrencySymbol;
             }
 
+            cultureIdLookup["XXX"] = cultureIdLookup[""] = new List<Int32>();
+            cultureIdLookup[""].Add(CultureInfo.InvariantCulture.LCID);
+            symbolLookup["XXX"] = symbolLookup[""] = CultureInfo.InvariantCulture.NumberFormat.CurrencySymbol;
 
-
+            _currencies[000] = new CurrencyTableEntry("None", "", 000, symbolLookup.GetValueOrDefault(""));
             _currencies[008] = new CurrencyTableEntry("Lek", "ALL", 008, symbolLookup.GetValueOrDefault("ALL"));
             _currencies[012] = new CurrencyTableEntry("Algerian Dinar",
                                                       "DZD",
@@ -1296,8 +1299,6 @@ namespace System
                                        "XXX",
                                        999,
                                        symbolLookup.GetValueOrDefault("XXX"));
-
-
 
             foreach (var currency in _currencies.Values)
             {

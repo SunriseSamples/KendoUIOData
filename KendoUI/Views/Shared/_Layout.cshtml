@@ -23,6 +23,7 @@
                 <nav>
                     <ul id="menu">
                         <li>@Html.ActionLink("主页", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Products", "Index", "Products", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     </ul>
                 </nav>
@@ -30,7 +31,6 @@
         </div>
     </header>
     @RenderBody()
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

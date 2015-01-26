@@ -3,4 +3,6 @@
 @using System.Collections;
 @(Html.Kendo().DropDownListFor(m => m)
     .OptionLabel(ViewModelResource.NullDisplayText)
-    .BindTo((IEnumerable<SelectListItem>)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"]))
+    .ValuePrimitive(true)
+    .BindTo((IEnumerable<SelectListItem>)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"])
+)

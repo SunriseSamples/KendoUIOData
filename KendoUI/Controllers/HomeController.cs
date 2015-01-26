@@ -12,12 +12,14 @@ namespace KendoUI.Controllers
     {
         public ActionResult Index()
         {
-            string serviceUri = "http://localhost:9171/odata";
-            var container = new Container(new Uri(serviceUri));
+            var serviceRoot = "http://localhost:9171/odata";
+            var container = new Container(new Uri(serviceRoot));
 
-            var currencies = new[] { Currency.Cny, Currency.Usd, Currency.Hkd, Currency.Eur, Currency.All };
+            ViewBag.ServiceRoot = serviceRoot;
+            var currencies = new[] { Currency.None, Currency.Cny, Currency.Usd, Currency.Hkd, Currency.Eur };
             ViewData["currencies"] = currencies;
             ViewData["categories"] = container.Categories;
+
             return View();
         }
     }

@@ -1,0 +1,270 @@
+﻿@using Kendo.Mvc;
+@using KendoUI.Models.OData.Models;
+@using KendoUI.Views.App_LocalResources;
+@using System.Collections;
+
+@{
+    ViewBag.Title = "Products";
+    // 参考：
+    // http://blogs.telerik.com/kendoui/posts/11-08-25/shields_up_web_service_abstraction_with_kendo_ui
+    // http://blogs.telerik.com/kendoui/posts/12-10-25/using_kendo_ui_with_mvc4_webapi_odata_and_ef
+    // https://github.com/telerik/ui-for-aspnet-mvc-examples/blob/master/grid/odata-v4-web-api-binding-wrappers/KendoUIMVC5/Views/Home/Index.cshtml
+    string serviceBaseUrl = ViewBag.ServiceRoot + "/Products";
+    var getUrl = new ClientHandlerDescriptor
+    {
+        HandlerName = "function(data) { return '" + serviceBaseUrl + "(' + data.ID + ')'; }"
+    };
+}
+<div id="body">
+    <h2>Products</h2>
+    <section class="content-wrapper clear-fix">
+        <h3>List</h3>
+        @(Html.Kendo().Grid<Product>()
+            .Name("Products")
+            .ToolBar(toolbar => toolbar.Create())
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.ID).Title(ViewModelResource.ID_ShortName).Visible(false);
+                columns.Bound(c => c.Name);
+                columns.ForeignKey(c => c.CurrencyID, (SelectList)ViewData["currencies"]).Visible(false);
+                columns.Bound(c => c.UnitPrice).HtmlAttributes(new { Class = "right-align" })
+                    .ClientTemplate("#= formatMoney(data.UnitPrice, data.CurrencyID) #");
+                columns.ForeignKey(c => c.CategoryID, (SelectList)ViewData["categories"]);
+                columns.Bound(c => c.Description);
+                columns.Bound(c => c.IntroductionUrl);
+                columns.Bound(c => c.ImageUrl);
+                columns.Bound(c => c.Memo);
+                columns.Command(command =>
+                {
+                    command.Edit();
+                    command.Destroy();
+                    //command.Custom("Details").Action("Details", "Products");
+                }).Title(ViewModelResource.Operation).Width(180);
+            })
+            .ClientDetailTemplateId("detailTemplate")
+            .Editable(editable => editable
+                .Mode(GridEditMode.PopUp)
+                .TemplateName("Product")
+                .Window(window => window.Width(800))
+            )
+            .DataSource(dataSource => dataSource
+                .Custom()
+                .Type("odata")
+                .Schema(schema => schema
+                    .Model(model =>
+                    {
+                        model.Id(p => p.ID);
+                        model.Field(p => p.ID).DefaultValue(Guid.Empty);
+                    })
+                    .Data("value")
+                    .Total(data => "function(data) { return data['@odata.count']; }")
+                )
+                .Transport(transport => transport
+                    .Create(create => create.Url(serviceBaseUrl))
+                    .Read(read => read.Url(serviceBaseUrl).DataType("json"))
+                    //.Read(read => read.Url(serviceBaseUrl).DataType("json").Data("function() { return { '$expand': 'Category' }; }"))
+                    .Update(new { url = getUrl, type = "PATCH" })
+                    .Destroy(new { url = getUrl })
+                    .ParameterMap("parameterMap")
+                )
+                .PageSize(10)
+                .ServerPaging(true)
+                .ServerSorting(true)
+                .ServerFiltering(true)
+                //.ServerGrouping(true)
+                .Events(events => events.Error("onError"))
+            )
+            .Pageable(pageable => pageable
+                .Refresh(true)
+                .PageSizes(true)
+                .ButtonCount(10)
+            )
+            .Sortable()
+            .Filterable()
+            .Groupable()
+        )
+    </section>
+</div>
+<script id="detailTemplate" type="text/kendo-tmpl">
+    <section class="left">
+        <h3 class="center-align">常用数据类型：</h3>
+        <div class="display-label">ID:</div>
+        <div class="display-field">#= ID #</div>
+        <div class="display-label">Name:</div>
+        <div class="display-field">#= Name #</div>
+        <div class="display-label">@ViewModelResource.Currency_Name:</div>
+        <div class="display-field">#= CurrencyID #</div>
+        <div class="display-label">@ViewModelResource.UnitPrice_Name:</div>
+        <div class="display-field">#= UnitPrice #</div>
+        <div class="display-label">@ViewModelResource.Category_Name:</div>
+        <div class="display-field">#= CategoryID #</div>
+        <div class="display-label">@ViewModelResource.Description_Name:</div>
+        <div class="display-field">#= Description #</div>
+        <div class="display-label">@ViewModelResource.IntroductionUrl_Name:</div>
+        <div class="display-field">#= IntroductionUrl #</div> 
+        <div class="display-label">@ViewModelResource.ImageUrl_Name:</div>
+        <div class="display-field">#= ImageUrl #</div>
+        <div class="display-label">@ViewModelResource.Memo_Name:</div>
+        <div class="display-field">#= Memo #</div>
+    </section>
+    <section class="left">
+        <h3 class="center-align">数字类型：</h3>
+        <div class="display-label">Bit:</div>
+        <div class="display-field">#= Bit #</div>
+        <div class="display-label">TinyInt:</div>
+        <div class="display-field">#= TinyInt #</div>
+        <div class="display-label">SmallInt:</div>
+        <div class="display-field">#= SmallInt #</div>
+        <div class="display-label">Int:</div>
+        <div class="display-field">#= Int #</div>
+        <div class="display-label">BigInt:</div>
+        <div class="display-field">#= BigInt #</div>
+        <div class="display-label">SmallMoney:</div>
+        <div class="display-field">#= SmallMoney #</div>
+        <div class="display-label">Money:</div>
+        <div class="display-field">#= Money #</div>
+        <div class="display-label">Decimal:</div>
+        <div class="display-field">#= Decimal #</div>
+        <div class="display-label">Numeric:</div>
+        <div class="display-field">#= Numeric #</div>
+        <div class="display-label">Numeric5:</div>
+        <div class="display-field">#= Numeric5 #</div>
+        <div class="display-label">Numeric9:</div>
+        <div class="display-field">#= Numeric9 #</div>
+        <div class="display-label">Numeric13:</div>
+        <div class="display-field">#= Numeric13 #</div>
+        <div class="display-label">Numeric17:</div>
+        <div class="display-field">#= Numeric17 #</div>
+        <div class="display-label">Real:</div>
+        <div class="display-field">#= Real #</div>
+        <div class="display-label">Float:</div>
+        <div class="display-field">#= Float #</div>
+    </section>
+    <section class="left">
+        <h3 class="center-align">日期和时间类型：</h3>
+        <div class="display-label">Date:</div>
+        <div class="display-field">#= Date #</div>
+        <div class="display-label">Time:</div>
+        <div class="display-field">#= Time #</div>
+        <div class="display-label">SmallDateTime:</div>
+        <div class="display-field">#= SmallDateTime #</div>
+        <div class="display-label">DateTime:</div>
+        <div class="display-field">#= DateTime #</div>
+        <div class="display-label">DateTime2:</div>
+        <div class="display-field">#= DateTime2 #</div>
+        <div class="display-label">DateTimeOffset:</div>
+        <div class="display-field">#= DateTimeOffset #</div>
+    </section>
+    <section class="left">
+        <h3 class="center-align">字符串和二进制类型：</h3>
+        <div class="display-label">Char10:</div>
+        <div class="display-field">#= Char10 #</div>
+        <div class="display-label">VarChar50:</div>
+        <div class="display-field">#= VarChar50 #</div>
+        <div class="display-label">VarCharMax:</div>
+        <div class="display-field">#= VarCharMax #</div>
+        <div class="display-label">Text:</div>
+        <div class="display-field">#= Text #</div>
+        <div class="display-label">NChar10:</div>
+        <div class="display-field">#= NChar10 #</div>
+        <div class="display-label">NVarChar50:</div>
+        <div class="display-field">#= NVarChar50 #</div>
+        <div class="display-label">NVarCharMax:</div>
+        <div class="display-field">#= NVarCharMax #</div>
+        <div class="display-label">NText:</div>
+        <div class="display-field">#= NText #</div>
+        <div class="display-label">Xml:</div>
+        <div class="display-field">#= Xml #</div>
+    </section>
+</script>
+<style>
+    section.left {
+        float: left;
+        padding-right: 18px;
+    }
+
+    .display-label {
+        float: left;
+        clear: left;
+        width: 128px;
+        text-align: right;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .display-field {
+        float: left;
+        clear: right;
+        padding-left: 8px;
+    }
+</style>
+<script>
+    function getCurrency(id) {
+        var currency = null;
+        var currencies = @Html.Raw(Json.Encode(ViewData["currenciesList"]));
+        $.each(currencies, function(i, c) {
+            if (id == c.IsoNumericCode) {
+                currency = c;
+                return false;
+            }
+        });
+        return currency;
+    }
+
+    function formatMoney(amount, currencyID) {
+        var currency = getCurrency(currencyID);
+        var code = (currency == null ? "" : currency.Iso3LetterCode);
+        return kendo.format("{0} {1:0.00}", code, amount);
+        //return kendo.format("{0} {1}", code, kendo.toString(amount, 'C', currency.Culture));
+    }
+
+    function parameterMap(data, operation) {
+        console.info("parameterMap(", data, ",", operation, ")");
+        var result = data;
+        if (operation == "read") {
+            result = kendo.data.transports.odata.parameterMap(data);
+            console.info("result =", result);
+            delete result.$format;      // remove format parameter.
+            delete result.$inlinecount; // remove inlinecount parameter.
+            result.$count = true;       // add count parameter.
+            if (result.$filter) {
+                // substringof('xYz',WorkUnitCode) needs to change to contains(WorkUnitCode,'06')
+                if (result.$filter.substring(0, 12) == "substringof(") {
+                    var parms = result.$filter.substring(12, result.$filter.length - 1).split(",");
+                    result.$filter = kendo.format("contains({0},{1})", parms[1], parms[0]);
+                }
+            }
+        }
+        else if (operation != "destroy") {
+            console.info("CurrencyID =", data.CurrencyID);
+            result = JSON.stringify(data);
+        }
+        console.info("return", result);
+        return result;
+    }
+
+    function onError(e) {
+        console.info("onError(", e, ")");
+        if (e.xhr.responseJSON) {
+            var message = e.xhr.responseJSON["error"].message;
+            var innerMessage = e.xhr.responseJSON["error"].innererror.message;
+            alert(message + "\n" + innerMessage);
+        }
+        else {
+            var status = e.status;
+            var statusText = e.xhr.statusText;
+            alert(status + "\n" + statusText);
+        }
+    }
+
+    function onCurrencyIDChange(e) {
+        console.info("onCurrencyIDChange(", e, ")");
+        var currency = getCurrency($("#CurrencyID").val());
+        if (currency != null) {
+            $("#UnitPrice").kendoNumericTextBox({ 
+                culture: currency.Culture,
+                format: "c"
+            });
+        }
+    }
+</script>

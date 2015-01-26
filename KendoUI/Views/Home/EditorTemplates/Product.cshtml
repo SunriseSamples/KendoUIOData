@@ -9,7 +9,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>ProductViewModel</legend>
+        <legend>Product</legend>
 
         @Html.HiddenFor(model => model.ID)
 
@@ -25,8 +25,12 @@
             @Html.LabelFor(model => model.UnitPrice, new { title = ViewModelResource.UnitPrice_Description })
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CurrencyID)
-            @Html.EditorFor(model => model.UnitPrice, new { currency = Model.CurrencyID })
+            @(Html.Kendo().DropDownListFor(model => model.CurrencyID)
+                .Name("CurrencyID")
+                .BindTo((IEnumerable<SelectListItem>)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("CurrencyID") + "_Data"])
+                .Events(events => events.Change("onCurrencyIDChange"))
+            )
+            @Html.EditorFor(model => model.UnitPrice, new { currency = ((IEnumerable<Currency>)ViewData["currencies"]).FirstOrDefault(c => c.IsoNumericCode == Model.CurrencyID) })
             @Html.ValidationMessageFor(model => model.UnitPrice)
         </div>
 
